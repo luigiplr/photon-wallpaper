@@ -11,13 +11,16 @@ var minimzeInfoShown = false;
 
 app.on('ready', () => {
 
+    const minWidth = 720;
+    const minHeight = 420;
+
     const mainWindow = new BrowserWindow({
-        minWidth: 930,
-        minHeight: 600,
-        width: 960,
-        height: 650,
+        minWidth,
+        minHeight,
+        width: 720,
+        height: 420,
         resizable: true,
-        backgroundColor: '#202B33',
+        backgroundColor: '#fff',
         title: 'Bing Photon',
         center: true,
         'auto-hide-menu-bar': true,
@@ -37,10 +40,8 @@ app.on('ready', () => {
     mainWindow.webContents.on('new-window', event => event.preventDefault());
 
     mainWindow.webContents.on('will-navigate', (event, url) => {
-        if (url.indexOf('build/index.html#') < 0) {
+        if (!url.includes('build/index.html'))
             event.preventDefault();
-            shell.openExternal(url);
-        }
     });
 
     mainWindow.webContents.on('did-finish-load', () => {

@@ -44,11 +44,6 @@ module.exports = function(grunt) {
                     cwd: 'images/',
                     src: ['**/*'],
                     dest: 'build/images/'
-                }, {
-                    expand: true,
-                    cwd: 'fonts/',
-                    src: ['**/*'],
-                    dest: 'build/fonts/'
                 }]
             }
         },
@@ -60,8 +55,7 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'build/css/main.css': 'styles/src/main.scss',
-                    'build/css/vender.css': 'styles/vender/**/*.css',
-                    'build/css/fonts.css': 'styles/fonts/**/*.css'
+                    'build/css/vender.css': 'styles/vender/**/*.css'
                 }
             }
         },
