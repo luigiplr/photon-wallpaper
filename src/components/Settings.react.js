@@ -8,8 +8,13 @@ import {
 }
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
-
 import Theme from '../materialTheme'
+
+class If extends React.Component {
+	render() {
+		return this.props.test ? this.props.children : null;
+	}
+}
 
 
 const resolutionOptions = [{
@@ -95,46 +100,49 @@ export default class Settings extends React.Component {
       				label="Auto Syning Enabled"
       				defaultToggled={this.state.autoSync}
       				style={toggleSTyle}
+      				onToggle={(event, autoSync) => this.setState({autoSync})}
     				/>
-            	<SelectField
-          			value={this.state.syncOption}
-          			onChange={(event, index, value) => this.setState({syncOption:value})}
-          			{...feildStyles}
-          			fullWidth={true}
-          			floatingLabelText="Sync Wallpaper"
-        			>
-        			{
-        				this.state.syncOptions.map((option, idx) => {
-        					idx++ // prevent value of 0
-        					return <MenuItem key={idx} value={idx} primaryText={option}/>;
-        				})
-        			}
-        		</SelectField>
+    			<If test={this.state.autoSync}>
+            		<SelectField
+          				value={this.state.syncOption}
+          				onChange={(event, index, syncOption) => this.setState({syncOption})}
+          				{...feildStyles}
+          				fullWidth={true}
+          				floatingLabelText="Auto Sync Wallpaper"
+        				>
+        				{
+        					this.state.syncOptions.map((option, idx) => {
+        						idx++ // prevent value of 0
+        						return <MenuItem key={idx} value={idx} primaryText={option}/>;
+        					})
+        				}
+        			</SelectField>
+        		</If>
             	<SelectField
           			value={this.state.resolution}
           			{...feildStyles}
-          			onChange={(event, index, value) => this.setState({resolution:value})}
+          			onChange={(event, index, resolution) => this.setState({resolution})}
           			floatingLabelText="Wallpaper Resolution"
           			fullWidth={true}
         			>
         			{
-        				this.state.resolutionOptions.map((option, idx) => {
+        				this.state.resolutionOptions.map(({value, text}, idx) => {
         					idx++ // prevent value of 0
-        					return <MenuItem key={idx} value={option.value} primaryText={option.text}/>;
+        					return <MenuItem key={idx} value={value} primaryText={text}/>;
         				})
         			}
         		</SelectField>
             	<SelectField
           			value={this.state.region}
-          			onChange={(event, index, value) => this.setState({region:value})}
+          			onChange={(event, index, region) => this.setState({region})}
           			{...feildStyles}
           			floatingLabelText="Region"
           			fullWidth={true}
         			>
         			{
-        				this.state.regions.map((option, idx) => {
-        					idx++ // prevent value of 0
-        					return <MenuItem key={idx} value={option.code} primaryText={option.text}/>;
+        				this.state.regions.map(({code, text}, idx) => {
+        					idx++ // prevent value of 0 
+        					return <MenuItem key={idx} value={code} primaryText={text}/>;
         				})
         			}
         		</SelectField>
