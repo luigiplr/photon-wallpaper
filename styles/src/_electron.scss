@@ -1,0 +1,46 @@
+html,
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    color: white;
+    height: 100vh;
+    overflow: none;
+    position: fixed;
+    
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: optimizelegibility;
+    img {
+        pointer-events: none;
+    }
+}
+
+.full-contain{
+    height: 100vh;
+    width: 100vw;
+}
+
+
+*::-webkit-scrollbar{
+    width:10px;
+    height:10px;
+}
+*::-webkit-scrollbar-thumb {
+    background-color:rgb(160, 160, 160);
+    border-radius: 5px;
+}
+*::-webkit-scrollbar-track{
+    border-radius: 5px;
+    background-color: rgb(235, 235, 235);
+} 
+*::-webkit-scrollbar-thumb:hover{
+    background-color:rgb(145, 145, 145);
+}
+*::-webkit-scrollbar-thumb:active{
+    background-color:rgb(130, 130, 130);
+}
+
