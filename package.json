@@ -20,6 +20,7 @@
     "alt": "^0.18.2",
     "bluebird": "^3.2.2",
     "electron-cookies": "^1.1.0",
+    "fbjs": "^0.2.1",
     "is-online": "^5.0.1",
     "local-storage": "^1.4.2",
     "lodash": "^4.3.0",
@@ -28,6 +29,7 @@
     "node-uuid": "^1.4.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-tap-event-plugin": "^0.2.0",
     "universal-analytics": "^0.3.10",
     "yargs": "^3.32.0"
   },
