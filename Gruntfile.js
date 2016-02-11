@@ -1,9 +1,9 @@
 var path = require('path');
 var execFile = require('child_process').execFile;
 var packagejson = require('./package.json');
-try{
+try {
     var electron = require('electron-prebuilt');
-}catch(e){}
+} catch (e) {}
 
 
 module.exports = function(grunt) {
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
             options: {
                 sourceMap: 'inline',
                 plugins: ['transform-minify-booleans', 'transform-property-literals', 'transform-simplify-comparison-operators', 'transform-merge-sibling-variables'],
-                presets: ['es2015', 'react'],
+                presets: ['react', 'es2015', 'stage-0'],
                 compact: true,
                 comments: false
             },
@@ -88,9 +88,9 @@ module.exports = function(grunt) {
                 }
             },
             packageDEB: {
-                command: function () {
+                command: function() {
                     return [
-                        'util/linux/deb-maker.sh '+ arch +'  ' + packagejson.version,
+                        'util/linux/deb-maker.sh ' + arch + '  ' + packagejson.version,
                         'echo "Linux<%= arch %> DEB Sucessfully packaged" || echo "Linux<%= arch %> DEB failed to package"'
                     ].join(' && ');
                 }
@@ -138,7 +138,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
 
-    grunt.registerTask('clean:all', ['clean:build', 'clean:dist', 'clean:release']); 
+    grunt.registerTask('clean:all', ['clean:build', 'clean:dist', 'clean:release']);
 
     grunt.registerTask('release', ['clean:build', 'babel', 'sass', 'copy:build', 'npm-command:release', 'electron:release']);
 
