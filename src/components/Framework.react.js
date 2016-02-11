@@ -1,7 +1,12 @@
 import React from 'react';
 
 
-export defualt class Framework extends React.Component {
+export default class Framework extends React.Component {
 
-    render() {}
+    render() {
+        return (
+            <div/>
+
+        )
+    }
 }

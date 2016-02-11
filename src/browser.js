@@ -3,7 +3,6 @@ import BrowserWindow from 'browser-window';
 import shell from 'shell';
 import path from 'path';
 import yargs from 'yargs';
-import tray from './tray';
 
 
 const args = yargs(process.argv.slice(1)).wrap(100).argv;
@@ -26,22 +25,12 @@ app.on('ready', () => {
         show: false
     });
 
-    const appIcon = tray({
-        close: app.quit,
-        show: () => {
-            mainWindow.show();
-            mainWindow.focus();
-        }
-    });
-
-
     if (args.dev) {
         mainWindow.show();
         mainWindow.toggleDevTools();
         mainWindow.focus();
         console.info('Dev Mode Active: Developer Tools Enabled.')
     }
-
 
     mainWindow.loadURL(path.normalize('file://' + path.join(__dirname, '../index.html')));
 
@@ -60,19 +49,6 @@ app.on('ready', () => {
     });
 
     mainWindow.on('close', app.quit);
-
-    mainWindow.on('minimize', event => {
-        event.preventDefault();
-        mainWindow.hide();
-        if (!minimzeInfoShown) {
-            minimzeInfoShown = true;
-            appIcon.displayBalloon({
-                title: 'Slackie has been minimized to tray',
-                content: 'Slackie is still running and can be restored by clicking its tray icon.'
-            });
-        }
-    });
-
 });
 
 
