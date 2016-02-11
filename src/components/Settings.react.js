@@ -4,7 +4,7 @@ import {
 }
 from 'lang-ietf-opentype'
 import {
-	SelectField, MenuItem, RaisedButton
+	SelectField, MenuItem, RaisedButton, Toggle
 }
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
@@ -38,6 +38,7 @@ const syncOptions = ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every
 export default class Settings extends React.Component {
 
 	state = {
+		autoSync: true,
 		syncOption: 1,
 		resolution: resolutionOptions[0].value,
 		region: regions[0].code,
@@ -56,27 +57,50 @@ export default class Settings extends React.Component {
 		};
 	}
 
+	getStyle(el) {
+		switch (el) {
+			case 'feild':
+				return {
+					floatingLabelStyle: {
+						fontWeight: 500
+					},
+					style: {
+						fontWeight: 300
+					}
+				}
+				break;
+			case 'toggle':
+				return {
+					marginTop: 16,
+				};
+				break;
+			case 'button':
+				return {
+					margin: 12,
+					float: 'right'
+				};
+				break;
+		}
+	}
+
 
 	render() {
-		const feildStyles = {
-			floatingLabelStyle: {
-				fontWeight: 500
-			},
-			style: {
-				fontWeight: 300
-			}
-		}
-		const buttonStyle = {
-			margin: 12,
-			float: 'right'
-		};
+		const feildStyles = this.getStyle('feild')
+		const buttonStyle = this.getStyle('button')
+		const toggleSTyle = this.getStyle('toggle');
 
 		return (
 			<div className="content">
+			    <Toggle
+      				label="Auto Syning Enabled"
+      				defaultToggled={this.state.autoSync}
+      				style={toggleSTyle}
+    				/>
             	<SelectField
           			value={this.state.syncOption}
           			onChange={(event, index, value) => this.setState({syncOption:value})}
           			{...feildStyles}
+          			fullWidth={true}
           			floatingLabelText="Sync Wallpaper"
         			>
         			{
@@ -91,6 +115,7 @@ export default class Settings extends React.Component {
           			{...feildStyles}
           			onChange={(event, index, value) => this.setState({resolution:value})}
           			floatingLabelText="Wallpaper Resolution"
+          			fullWidth={true}
         			>
         			{
         				this.state.resolutionOptions.map((option, idx) => {
@@ -104,6 +129,7 @@ export default class Settings extends React.Component {
           			onChange={(event, index, value) => this.setState({region:value})}
           			{...feildStyles}
           			floatingLabelText="Region"
+          			fullWidth={true}
         			>
         			{
         				this.state.regions.map((option, idx) => {
