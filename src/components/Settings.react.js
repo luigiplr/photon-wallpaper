@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-	SelectField, MenuItem
+	SelectField, MenuItem, RaisedButton
 }
 from 'material-ui'
 
@@ -16,6 +16,11 @@ export default class Settings extends React.Component {
 	}
 
 	render() {
+		const buttonStyle = {
+			margin: 12,
+			float: 'right'
+		};
+
 		return (
 			<div className="content">
             	<SelectField
@@ -30,6 +35,9 @@ export default class Settings extends React.Component {
         				})
         			}
         		</SelectField>
+        		<div className="bottom">
+        			<RaisedButton style={buttonStyle} label="Sync Now"/>
+        		</div>
             </div>
 		)
 	}

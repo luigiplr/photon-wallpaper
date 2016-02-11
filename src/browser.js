@@ -20,6 +20,7 @@ app.on('ready', () => {
         width: 720,
         height: 420,
         resizable: true,
+        icon: 'images/Bing-logo-blue.png',
         backgroundColor: '#fff',
         title: 'Bing Photon',
         center: true,
