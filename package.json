@@ -18,6 +18,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "alt": "^0.18.2",
+    "bing-image": "^0.1.0",
     "bluebird": "^3.2.2",
     "electron-cookies": "^1.1.0",
     "fbjs": "^0.2.1",
@@ -31,6 +32,7 @@
     "react-dom": "^0.14.7",
     "react-tap-event-plugin": "^0.2.0",
     "universal-analytics": "^0.3.10",
+    "wallpaper": "^2.1.0",
     "yargs": "^3.32.0"
   },
   "devDependencies": {
