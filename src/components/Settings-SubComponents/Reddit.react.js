@@ -11,6 +11,7 @@ import AppActions from '../../actions/appActions'
 export default class Reddit extends React.Component {
 
 	state = {
+		minimumScoreOptions: ['0', '50', '100', '150', '200'],
 		subredditSuggestions: [],
 		...AppStore.getState()
 	};
@@ -111,6 +112,19 @@ export default class Reddit extends React.Component {
         			{
         				this.state.fromOptions.map((sorter, idx) => {
         					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter.charAt(0).toUpperCase() + sorter.slice(1)}` : 'All'}/>
+        				})
+        			}
+        		</SelectField>
+            	<SelectField
+          			value={this.state.score}
+          			{...feildStyles}
+          			onChange={(event, index, score) => AppActions.scoreChange(score)}
+          			floatingLabelText='Minimum Score'
+          			fullWidth={true}
+        			>
+        			{
+        				this.state.minimumScoreOptions.map((score, idx) => {
+        					return <MenuItem key={idx + 1} value={score} primaryText={score}/>
         				})
         			}
         		</SelectField>

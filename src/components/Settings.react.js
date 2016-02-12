@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-	SelectField, MenuItem, RaisedButton, Toggle
+	SelectField, MenuItem, RaisedButton, Toggle 
 }
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
@@ -89,6 +89,7 @@ export default class Settings extends React.Component {
 
 		return (
 			<div className='content'>
+				<div className='content-scroller'>
 			    <SelectField
           			value={this.state.provider}
           			onChange={(event, index, provider) => this.handelProviderSwitch(provider, this.state.provider)}
@@ -139,7 +140,8 @@ export default class Settings extends React.Component {
         				}
         			</SelectField>
         		</If>
-        		<div className='bottom'>
+        		</div>
+        		<div>
         			<RaisedButton onClick={wallpaperUtil.syncUp} style={{ margin: 12, float: 'right', marginLeft: 15}} label='Sync Now' />
         			<RaisedButton onClick={wallpaperUtil.restoreBackup} label='Revert' style={{ margin: 12, float: 'right', marginRight: 0}} disabled={!this.state.backupSet} />
         		</div>

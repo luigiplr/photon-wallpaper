@@ -16,6 +16,7 @@ export default alt.generateActions(
 
 	'fromChange',
 	'sortChange',
+	'scoreChange',
 	'subredditChange',
 
 

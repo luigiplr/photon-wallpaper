@@ -38,11 +38,13 @@ class AppStore {
 
 		this.subReddit = ls.get('subReddit') || null
 
+		this.score = ls.get('score') || '0'
+
 		this.sortOptions = ['top', 'hot', 'new', 'controversial']
 		this.sort = ls.get('sort') || this.sortOptions[0]
 
 		this.fromOptions = ['hour', 'day', 'week', 'month', 'all']
-		this.from = ls.get('from') || this.fromOptions[0]
+		this.from = ls.get('from') || 'day'
 
 
 		/* Bing Options */
@@ -96,6 +98,11 @@ class AppStore {
 	onFromChange(from) {
 		ls.set('from', from)
 		this.from = from
+	}
+
+	onScoreChange(score) {
+		ls.set('score', score)
+		this.score = score
 	}
 
 	onSortChange(sort) {

@@ -8,8 +8,11 @@ import {
 }
 from 'remote';
 
+import RedditUtil from './redditUtil'
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
+
+
 
 const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache')
 
@@ -39,9 +42,11 @@ const restoreBackup = () => {
 
 
 const syncUp = () => {
+	const state = AppStore.getState()
+
 	const {
 		provider, resolution, resolutionOptions
-	} = AppStore.getState()
+	} = state
 
 	switch (provider) {
 		case 'bing':
@@ -62,6 +67,39 @@ const syncUp = () => {
 				else
 					setAndBackup(localPath)
 			});
+			break
+		case 'reddit':
+
+			const options = {
+				subreddits: [state.subReddit.replace('r/', '')],
+				sort: state.sort,
+				from: state.from,
+				score: parseInt(state.score),
+				domains: ['i.imgur.com', 'imgur.com'],
+				types: ['png', 'jpg', 'jpeg'],
+				shuffle: false,
+				resolution: {
+					width: resolution.split('x')[0],
+					height: resolution.split('x')[1]
+				}
+			}
+
+			RedditUtil(options)
+				.then(link => {
+					if(!link.url) return console.log('No Images Found')
+
+					const image = link.url
+					const localPath = path.join(wallpaperCacheDir, path.basename(image))
+
+					if (!fs.existsSync(localPath))
+						request
+						.get(image)
+						.pipe(fs.createWriteStream(localPath))
+						.on('finish', () => setAndBackup(localPath))
+					else
+						setAndBackup(localPath)
+				})
+				.catch(e => console.error(e))
 			break
 	}
 }
