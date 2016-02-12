@@ -1,5 +1,6 @@
 import ls from 'local-storage'
 import alt from '../alt'
+import fs from 'fs'
 import Themer from '../themes/themer'
 import AppActions from '../actions/appActions'
 
@@ -8,6 +9,11 @@ import AppActions from '../actions/appActions'
 class AppStore {
 	constructor() {
 		this.bindActions(AppActions)
+
+
+		/* Core Settings */
+
+		this.backupSet = ls.get('backupSet') && fs.existsSync(ls.get('backupSet')) ? ls.get('backupSet') : false
 
 		this.providers = ['bing', 'reddit']
 		this.provider = ls.get('provider') || this.providers[0]
@@ -77,6 +83,11 @@ class AppStore {
 	onResolutionChange(resolution) {
 		ls.set('resolution', resolution)
 		this.resolution = resolution
+	}
+
+	onBackupSet(backupSet) {
+		ls.set('backupSet', backupSet)
+		this.backupSet = backupSet
 	}
 
 

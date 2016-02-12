@@ -9,22 +9,42 @@ import {
 from 'remote';
 
 import AppStore from '../stores/appStore'
+import AppActions from '../actions/appActions'
 
-const appUpdateDir = path.join(app.getPath('userData'), 'wallpaper_cache');
+const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache');
 
-if (!fs.existsSync(appUpdateDir))
-	fs.mkdirSync(appUpdateDir);
+if (!fs.existsSync(wallpaperCacheDir))
+	fs.mkdirSync(wallpaperCacheDir);
 
+
+const setAndBackup = newPath => {
+	wallpaper.get()
+		.then(oldWallpaperPath => {
+			const backUpPath = path.join(wallpaperCacheDir, `wallpaper_backup${path.extname(oldWallpaperPath)}`)
+
+			fs.createReadStream(oldWallpaperPath)
+				.pipe(fs.createWriteStream(backUpPath))
+				.on('finish', () => {
+					AppActions.backupSet(backUpPath)
+					wallpaper.set(newPath)
+				})
+		})
+}
+
+
+const restoreBackup = () => {
+	wallpaper.set(AppStore.getState().backupSet)
+		.then(() => AppActions.backupSet(false))
+}
 
 
 const syncUp = () => {
 	const {
 		provider, resolution, resolutionOptions
-	} = AppStore.getState();
+	} = AppStore.getState()
 
 	switch (provider) {
 		case 'bing':
-
 			request.get({
 				url: `http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${AppStore.getState().region}`,
 				json: true
@@ -33,20 +53,22 @@ const syncUp = () => {
 
 				const image = `http://www.bing.com/${body.images[0].urlbase}_${resolution.replace('_', 'x')}.jpg`
 
-				const localPath = path.join(appUpdateDir, path.basename(image))
+				const localPath = path.join(wallpaperCacheDir, path.basename(image))
 
 				if (!fs.existsSync(localPath))
 					request
 					.get(image)
 					.pipe(fs.createWriteStream(localPath))
-					.on('finish', () => wallpaper.set(localPath))
+					.on('finish', () => setAndBackup(localPath))
 				else
-					wallpaper.set(localPath)
+					setAndBackup(localPath)
 			});
-
 			break
 	}
 }
 
 
-export default syncUp
+export default {
+	restoreBackup,
+	syncUp
+}

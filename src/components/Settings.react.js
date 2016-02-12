@@ -62,12 +62,6 @@ export default class Settings extends React.Component {
 					marginTop: 16
 				}
 				break
-			case 'button':
-				return {
-					margin: 12,
-					float: 'right'
-				}
-				break
 			default:
 				return {}
 		}
@@ -91,7 +85,6 @@ export default class Settings extends React.Component {
 
 	render() {
 		const feildStyles = this.getStyle('feild')
-		const buttonStyle = this.getStyle('button')
 		const toggleSTyle = this.getStyle('toggle')
 
 		return (
@@ -147,7 +140,8 @@ export default class Settings extends React.Component {
         			</SelectField>
         		</If>
         		<div className='bottom'>
-        			<RaisedButton onClick={wallpaperUtil} style={buttonStyle} label='Sync Now'/>
+        			<RaisedButton onClick={wallpaperUtil.syncUp} style={{ margin: 12, float: 'right', marginLeft: 15}} label='Sync Now' />
+        			<RaisedButton onClick={wallpaperUtil.restoreBackup} label='Revert' style={{ margin: 12, float: 'right', marginRight: 0}} disabled={!this.state.backupSet} />
         		</div>
             </div>
 		)
