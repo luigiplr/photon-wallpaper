@@ -1,16 +1,19 @@
 import React from 'react'
 import {
-	SelectField, MenuItem, RaisedButton, Toggle
+	SelectField, MenuItem, AutoComplete
 }
 from 'material-ui'
+import Redditjs from 'reddit.js'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import AppStore from '../../stores/appStore'
 import AppActions from '../../actions/appActions'
 
-
 export default class Reddit extends React.Component {
 
-	state = AppStore.getState();
+	state = {
+		subredditSuggestions: [],
+		...AppStore.getState()
+	};
 
 	static childContextTypes = {
 		muiTheme: React.PropTypes.object
@@ -23,11 +26,11 @@ export default class Reddit extends React.Component {
 	}
 
 	componentDidMount() {
-		AppStore.listen(this.onChange);
+		AppStore.listen(this.onChange)
 	}
 
 	componentWillUnmount() {
-		AppStore.unlisten(this.onChange);
+		AppStore.unlisten(this.onChange)
 	}
 
 	onChange = () => this.setState(AppStore.getState());
@@ -49,11 +52,31 @@ export default class Reddit extends React.Component {
 		}
 	}
 
+	updateSubredditSuggestions = text => {
+		reddit.searchSubreddits(text).fetch(res => {
+			if (!res || !res.data || !res.data.children || res.data.children.length === 0) return
+			const subredditSuggestions = res.data.children.map(child => {
+				return `r/${child.data.display_name}`
+			}).slice(0, 5)
+			console.log(subredditSuggestions)
+			this.setState({subredditSuggestions})
+		})
+	};
+
 	render() {
 		const feildStyles = this.getStyle('feild')
 
 		return (
 			<div>
+			    <AutoComplete
+			    	floatingLabelText='Subreddit'
+        			hintText='r/earthporn'
+        			filter={AutoComplete.noFilter}
+        			dataSource={this.state.subredditSuggestions}
+       				onUpdateInput={this.updateSubredditSuggestions}
+       				{...feildStyles}
+      				/>
+
             	<SelectField
           			value={this.state.sort}
           			{...feildStyles}
