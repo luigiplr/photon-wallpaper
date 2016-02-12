@@ -73,6 +73,8 @@ export default class Reddit extends React.Component {
         			hintText='r/earthporn'
         			filter={AutoComplete.noFilter}
         			dataSource={this.state.subredditSuggestions}
+        			triggerUpdateOnFocus={true}
+        			fullWidth={true}
        				onUpdateInput={this.updateSubredditSuggestions}
        				{...feildStyles}
       				/>
