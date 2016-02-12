@@ -69,7 +69,7 @@ export default class Reddit extends React.Component {
 			<div>
 			    <AutoComplete
 			    	floatingLabelText='Subreddit'
-        			hintText='r/earthporn'
+        			hintText='r/EarthPorn'
         			filter={AutoComplete.noFilter}
         			dataSource={this.state.subredditSuggestions}
         			triggerUpdateOnFocus={true}
@@ -78,7 +78,6 @@ export default class Reddit extends React.Component {
        				onUpdateInput={this.updateSubredditSuggestions}
        				{...feildStyles}
       				/>
-
             	<SelectField
           			value={this.state.sort}
           			{...feildStyles}
@@ -101,7 +100,7 @@ export default class Reddit extends React.Component {
         			>
         			{
         				this.state.fromOptions.map((sorter, idx) => {
-        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter}` : 'All'}/>
+        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter.charAt(0).toUpperCase() + sorter.slice(1)}` : 'All'}/>
         				})
         			}
         		</SelectField>
