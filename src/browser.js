@@ -12,13 +12,13 @@ var minimzeInfoShown = false
 app.on('ready', () => {
 
     const minWidth = 900
-    const minHeight = 445
+    const minHeight = 463
 
     const mainWindow = new BrowserWindow({
         minWidth,
         minHeight,
         width: minWidth,
-        height: 460,
+        height: minHeight,
         resizable: true,
         icon: 'images/Bing-logo-blue.png',
         title: 'Photon Wallpaper',
