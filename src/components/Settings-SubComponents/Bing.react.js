@@ -56,14 +56,14 @@ export default class Bing extends React.Component {
 			<div>
             	<SelectField
           			value={this.state.region}
-          			onChange={(event, index, region) => this.setState({region})}
+          			onChange={(event, index, region) => AppActions.regionChange(region)}
           			{...feildStyles}
           			floatingLabelText="Region"
           			fullWidth={true}
         			>
         			{
         				this.state.regionOptions.map(({code, text}, idx) => {
-        					return <MenuItem key={idx + 1} value={code} primaryText={text}/>;
+        					return <MenuItem key={idx + 1} value={code} primaryText={text}/>
         				})
         			}
         		</SelectField>

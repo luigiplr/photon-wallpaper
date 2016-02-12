@@ -87,6 +87,12 @@ class AppStore {
 	}
 
 
+	/* Bing */ 
+
+	onRegionChange(region){
+		this.region = region
+	}
+
 }
 
 export default alt.createStore(AppStore)

@@ -4,10 +4,12 @@ import alt from '../alt';
 
 export default alt.generateActions(
 	/* Core actions */
+
 	'providerChange',
 	'autoSyncChange',
 	'syncTimeoutChange',
 	'resolutionChange',
+
 
 	/* Reddit Actions */
 
@@ -15,8 +17,8 @@ export default alt.generateActions(
 	'sortChange',
 	'subredditChange',
 
+
 	/* Bing Actions */
 
-
-
+	'regionChange'
 );

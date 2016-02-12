@@ -34,11 +34,11 @@ export default class Settings extends React.Component {
 	}
 
 	componentDidMount() {
-		AppStore.listen(this.onChange);
+		AppStore.listen(this.onChange)
 	}
 
 	componentWillUnmount() {
-		AppStore.unlisten(this.onChange);
+		AppStore.unlisten(this.onChange)
 	}
 
 	onChange = () => this.setState(AppStore.getState());
