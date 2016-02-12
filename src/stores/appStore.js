@@ -1,6 +1,7 @@
-import alt from '../alt';
+import ls from 'local-storage'
+import alt from '../alt'
 import Themer from '../themes/themer'
-import AppActions from '../actions/appActions';
+import AppActions from '../actions/appActions'
 
 
 
