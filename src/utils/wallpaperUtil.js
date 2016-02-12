@@ -25,12 +25,15 @@ const setAndBackup = newPath => {
 		.then(oldWallpaperPath => {
 			const backUpPath = path.join(wallpaperCacheDir, `wallpaper_backup${path.extname(oldWallpaperPath)}`)
 
-			fs.createReadStream(oldWallpaperPath)
+			if (fs.existsSync(wallpaperCacheDir))
+				fs.createReadStream(oldWallpaperPath)
 				.pipe(fs.createWriteStream(backUpPath))
 				.on('finish', () => {
 					AppActions.backupSet(backUpPath)
 					wallpaper.set(newPath)
 				})
+			else
+				wallpaper.set(newPath)
 		})
 }
 
@@ -86,7 +89,7 @@ const syncUp = () => {
 
 			RedditUtil(options)
 				.then(link => {
-					if(!link.url) return console.log('No Images Found')
+					if (!link.url) return console.log('No Images Found')
 
 					const image = link.url
 					const localPath = path.join(wallpaperCacheDir, path.basename(image))
