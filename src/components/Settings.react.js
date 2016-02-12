@@ -83,6 +83,11 @@ export default class Settings extends React.Component {
 		}
 	}
 
+	handelProviderSwitch(newProvider, oldProvider) {
+		if (newProvider !== oldProvider)
+			AppActions.providerChange(newProvider)
+	}
+
 	render() {
 		const feildStyles = this.getStyle('feild')
 		const buttonStyle = this.getStyle('button')
@@ -92,7 +97,7 @@ export default class Settings extends React.Component {
 			<div className="content">
 			    <SelectField
           			value={this.state.provider}
-          			onChange={(event, index, provider) => AppActions.providerChange(provider)}
+          			onChange={(event, index, provider) => this.handelProviderSwitch(provider, this.state.provider)}
           			{...feildStyles}
           			fullWidth={true}
           			floatingLabelText="Wallpaper Provider"
