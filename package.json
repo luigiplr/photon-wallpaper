@@ -1,15 +1,15 @@
 {
-  "name": "bing-photon",
+  "name": "photon-wallpaper",
   "version": "0.0.1",
   "author": "Luigi Poole",
-  "description": "Clean out of the way bing images wallpaper syncer",
-  "homepage": "https://github.com/luigiplr/bing-photon",
+  "description": "A clean way of keeping your wallpaper synced with bing or reddit subreddits!",
+  "homepage": "https://github.com/luigiplr/photon-wallpaper",
   "main": "js/browser.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/luigiplr/bing-photon.git"
+    "url": "https://github.com/luigiplr/photon-wallpaper.git"
   },
-  "bugs": "https://github.com/luigiplr/bing-photon/issues",
+  "bugs": "https://github.com/luigiplr/photon-wallpaper/issues",
   "scripts": {
     "start": "grunt",
     "release": "grunt release"
