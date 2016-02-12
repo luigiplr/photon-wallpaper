@@ -25,7 +25,7 @@ const setAndBackup = newPath => {
 		.then(oldWallpaperPath => {
 			const backUpPath = path.join(wallpaperCacheDir, `wallpaper_backup${path.extname(oldWallpaperPath)}`)
 
-			if (fs.existsSync(wallpaperCacheDir))
+			if (fs.existsSync(oldWallpaperPath))
 				fs.createReadStream(oldWallpaperPath)
 				.pipe(fs.createWriteStream(backUpPath))
 				.on('finish', () => {
