@@ -73,6 +73,7 @@ export default class Reddit extends React.Component {
         			filter={AutoComplete.noFilter}
         			dataSource={this.state.subredditSuggestions}
         			triggerUpdateOnFocus={true}
+        			defaultValue={this.state.subReddit}
         			fullWidth={true}
        				onUpdateInput={this.updateSubredditSuggestions}
        				{...feildStyles}
@@ -87,7 +88,7 @@ export default class Reddit extends React.Component {
         			>
         			{
         				this.state.sortOptions.map((sorter, idx) => {
-        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter.charAt(0).toUpperCase() + sorter.slice(1)}/>;
+        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter.charAt(0).toUpperCase() + sorter.slice(1)}/>
         				})
         			}
         		</SelectField>
@@ -100,7 +101,7 @@ export default class Reddit extends React.Component {
         			>
         			{
         				this.state.fromOptions.map((sorter, idx) => {
-        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter}` : 'All'}/>;
+        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter}` : 'All'}/>
         				})
         			}
         		</SelectField>
