@@ -94,13 +94,13 @@ export default class Settings extends React.Component {
 		const toggleSTyle = this.getStyle('toggle')
 
 		return (
-			<div className="content">
+			<div className='content'>
 			    <SelectField
           			value={this.state.provider}
           			onChange={(event, index, provider) => this.handelProviderSwitch(provider, this.state.provider)}
           			{...feildStyles}
           			fullWidth={true}
-          			floatingLabelText="Wallpaper Provider"
+          			floatingLabelText='Wallpaper Provider'
         			>
         			{
         				this.state.providers.map((provider, idx) => {
@@ -125,7 +125,7 @@ export default class Settings extends React.Component {
         			}
         		</SelectField>
 			    <Toggle
-      				label="Auto Syncing Enabled"
+      				label='Auto Syncing Enabled'
       				defaultToggled={this.state.autoSync}
       				style={toggleSTyle}
       				onToggle={(event, autoSync) => AppActions.autoSyncChange(autoSync)}
@@ -136,7 +136,7 @@ export default class Settings extends React.Component {
           				onChange={(event, index, timeout) => AppActions.syncTimeoutChange(timeout)}
           				{...feildStyles}
           				fullWidth={true}
-          				floatingLabelText="Auto Sync Wallpaper"
+          				floatingLabelText='Auto Sync Wallpaper'
         				>
         				{
         					this.state.syncOptions.map((option, idx) => {
@@ -145,8 +145,8 @@ export default class Settings extends React.Component {
         				}
         			</SelectField>
         		</If>
-        		<div className="bottom">
-        			<RaisedButton style={buttonStyle} label="Sync Now"/>
+        		<div className='bottom'>
+        			<RaisedButton style={buttonStyle} label='Sync Now'/>
         		</div>
             </div>
 		)

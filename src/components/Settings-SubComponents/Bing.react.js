@@ -58,7 +58,7 @@ export default class Bing extends React.Component {
           			value={this.state.region}
           			onChange={(event, index, region) => AppActions.regionChange(region)}
           			{...feildStyles}
-          			floatingLabelText="Region"
+          			floatingLabelText='Region'
           			fullWidth={true}
         			>
         			{
