@@ -25,7 +25,7 @@ export default class Sidebar extends React.Component {
 	render() {
 		return (
 			<div className={`sidebar ${this.state.provider}`}>
-            	<img className={`${this.state.provider}-logo`} src={`images/${this.state.provider}-logo-sidebar.png`}/>
+            	<img className='logo' src={`images/${this.state.provider}-logo-sidebar.png`}/>
             </div>
 		)
 	}
