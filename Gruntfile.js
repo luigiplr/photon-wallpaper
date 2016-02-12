@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
     var target = grunt.option('target') || 'development';
 
-    var BASENAME = 'Bing-Photon';
+    var BASENAME = 'Photon-Wallpaper';
     var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32';
 
     var platform = grunt.option('platform') ? grunt.option('platform') : process.platform;

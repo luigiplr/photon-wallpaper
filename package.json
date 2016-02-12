@@ -23,7 +23,7 @@
     "bluebird": "^3.2.2",
     "country-codes": "0.0.3",
     "electron-cookies": "^1.1.0",
-    "fbjs": "^0.2.1",
+    "fbjs": "^0.7.2",
     "is-online": "^5.0.1",
     "local-storage": "^1.4.2",
     "lodash": "^4.3.0",
@@ -32,7 +32,7 @@
     "node-uuid": "^1.4.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-tap-event-plugin": "^0.2.0",
+    "react-tap-event-plugin": "^0.2.2",
     "universal-analytics": "^0.3.10",
     "wallpaper": "^2.1.0",
     "yargs": "^3.32.0"

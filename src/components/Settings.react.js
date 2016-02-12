@@ -8,49 +8,21 @@ import {
 }
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import Theme from '../materialTheme'
+import Themer from '../themes/themer'
+import BingSettings from './Settings-SubComponents/Bing.react'
+import AppStore from '../stores/appStore'
+import AppActions from '../actions/appActions'
+
 
 class If extends React.Component {
 	render() {
-		return this.props.test ? this.props.children : null;
+		return this.props.test ? this.props.children : null
 	}
 }
 
-
-const resolutionOptions = [{
-	value: '1920_1080',
-	text: '1080p (1920 × 1080)'
-}, {
-	value: '1280_720',
-	text: '720p (1280 x 720)'
-}];
-
-
-const regions = [{
-	code: 'en-US',
-	text: 'North America',
-}, {
-	code: 'zh-CN',
-	text: 'Europe'
-}, {
-	code: 'ja-JP',
-	text: 'Asia'
-}]
-
-
-const syncOptions = ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month'];
-
 export default class Settings extends React.Component {
 
-	state = {
-		autoSync: true,
-		syncOption: 1,
-		resolution: resolutionOptions[0].value,
-		region: regions[0].code,
-		syncOptions,
-		regions,
-		resolutionOptions
-	};
+	state = AppStore.getState();
 
 	static childContextTypes = {
 		muiTheme: React.PropTypes.object
@@ -58,9 +30,21 @@ export default class Settings extends React.Component {
 
 	getChildContext() {
 		return {
-			muiTheme: ThemeManager.getMuiTheme(Theme),
-		};
+			muiTheme: ThemeManager.getMuiTheme(this.state.theme)
+		}
 	}
+
+	componentDidMount() {
+		AppStore.listen(this.onChange);
+	}
+
+	componentWillUnmount() {
+		AppStore.unlisten(this.onChange);
+	}
+
+	onChange = state => {
+		this.setState(state)
+	};
 
 	getStyle(el) {
 		switch (el) {
@@ -73,79 +57,76 @@ export default class Settings extends React.Component {
 						fontWeight: 300
 					}
 				}
-				break;
+				break
 			case 'toggle':
 				return {
-					marginTop: 16,
-				};
-				break;
+					fontWeight: 300,
+					marginTop: 16
+				}
+				break
 			case 'button':
 				return {
 					margin: 12,
 					float: 'right'
-				};
-				break;
+				}
+				break
+			default:
+				return {}
 		}
 	}
 
+	getSettings(provider) {
+		switch (provider) {
+			case 'bing':
+				return <BingSettings theme={this.state.theme}/>
+				break
+			case 'reddit':
+				break
+		}
+	}
 
 	render() {
 		const feildStyles = this.getStyle('feild')
 		const buttonStyle = this.getStyle('button')
-		const toggleSTyle = this.getStyle('toggle');
+		const toggleSTyle = this.getStyle('toggle')
 
 		return (
 			<div className="content">
+			    <SelectField
+          			value={this.state.provider}
+          			onChange={(event, index, provider) => AppActions.providerChange(provider)}
+          			{...feildStyles}
+          			fullWidth={true}
+          			floatingLabelText="Wallpaper provider"
+        			>
+        			{
+        				this.state.providers.map((provider, idx) => {
+        					return <MenuItem key={idx + 1} value={provider} primaryText={provider.charAt(0).toUpperCase() + provider.slice(1)}/>;
+        				})
+        			}
+        		</SelectField>
 			    <Toggle
       				label="Auto Syning Enabled"
       				defaultToggled={this.state.autoSync}
       				style={toggleSTyle}
-      				onToggle={(event, autoSync) => this.setState({autoSync})}
+      				onToggle={(event, autoSync) => AppActions.autoSyncChange(autoSync)}
     				/>
     			<If test={this.state.autoSync}>
             		<SelectField
-          				value={this.state.syncOption}
-          				onChange={(event, index, syncOption) => this.setState({syncOption})}
+          				value={this.state.sync}
+          				onChange={(event, index, timeout) => AppActions.syncTimeoutChange(timeout)}
           				{...feildStyles}
           				fullWidth={true}
           				floatingLabelText="Auto Sync Wallpaper"
         				>
         				{
         					this.state.syncOptions.map((option, idx) => {
-        						idx++ // prevent value of 0
-        						return <MenuItem key={idx} value={idx} primaryText={option}/>;
+        						return <MenuItem key={idx + 1} value={option.toLowerCase().replace(' ', '_')} primaryText={option}/>;
         					})
         				}
         			</SelectField>
         		</If>
-            	<SelectField
-          			value={this.state.resolution}
-          			{...feildStyles}
-          			onChange={(event, index, resolution) => this.setState({resolution})}
-          			floatingLabelText="Wallpaper Resolution"
-          			fullWidth={true}
-        			>
-        			{
-        				this.state.resolutionOptions.map(({value, text}, idx) => {
-        					idx++ // prevent value of 0
-        					return <MenuItem key={idx} value={value} primaryText={text}/>;
-        				})
-        			}
-        		</SelectField>
-            	<SelectField
-          			value={this.state.region}
-          			onChange={(event, index, region) => this.setState({region})}
-          			{...feildStyles}
-          			floatingLabelText="Region"
-          			fullWidth={true}
-        			>
-        			{
-        				this.state.regions.map(({code, text}, idx) => {
-        					idx++ // prevent value of 0 
-        					return <MenuItem key={idx} value={code} primaryText={text}/>;
-        				})
-        			}
-        		</SelectField>
+            	{this.getSettings.bind(this, this.state.provider)()}
         		<div className="bottom">
         			<RaisedButton style={buttonStyle} label="Sync Now"/>
         		</div>
