@@ -17,8 +17,8 @@ I like making shit I guess... I also like wallpapers so this is nice.
 
 ### Screenshots
 
-<img src="preview/UI_reddit.jpg" alt="Reddit" width="50%"/>
-<img src="preview/UI_bing.jpg" alt="Bing" width="50%"/>
+<img src="preview/UI_reddit.jpg" alt="Reddit" width="49%"/>
+<img src="preview/UI_bing.jpg" alt="Bing" width="49%"/>
 
 ### Where's the beef!
 
