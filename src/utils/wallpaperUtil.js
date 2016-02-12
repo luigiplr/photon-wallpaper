@@ -51,7 +51,7 @@ const syncUp = () => {
 			}, (error, response, body) => {
 				if (error || response.statusCode !== 200 || !body || !body.images || !body.images.length > 0) return
 
-				const image = `http://www.bing.com/${body.images[0].urlbase}_${resolution.replace('_', 'x')}.jpg`
+				const image = `http://www.bing.com/${body.images[0].urlbase}_${resolution}.jpg`
 				const localPath = path.join(wallpaperCacheDir, path.basename(image))
 
 				if (!fs.existsSync(localPath))

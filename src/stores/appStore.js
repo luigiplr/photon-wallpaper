@@ -25,10 +25,10 @@ class AppStore {
 		this.sync = ls.get('sync') || this.syncOptions[0].toLowerCase().replace(' ', '_')
 
 		this.resolutionOptions = [{
-			value: '1920_1080',
+			value: '1920x1080',
 			text: '1080p (1920 × 1080)'
 		}, {
-			value: '1280_720',
+			value: '1280x720',
 			text: '720p (1280 x 720)'
 		}]
 		this.resolution = ls.get('resolution') || this.resolutionOptions[0].value
