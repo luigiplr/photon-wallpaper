@@ -82,8 +82,8 @@ const syncUp = () => {
 				types: ['png', 'jpg', 'jpeg'],
 				shuffle: false,
 				resolution: {
-					width: resolution.split('x')[0],
-					height: resolution.split('x')[1]
+					width: parseInt(resolution.split('x')[0]),
+					height: parseInt(resolution.split('x')[1])
 				}
 			}
 
