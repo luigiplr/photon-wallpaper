@@ -11,10 +11,10 @@ from 'remote';
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
 
-const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache');
+const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache')
 
 if (!fs.existsSync(wallpaperCacheDir))
-	fs.mkdirSync(wallpaperCacheDir);
+	fs.mkdirSync(wallpaperCacheDir)
 
 
 const setAndBackup = newPath => {
@@ -52,7 +52,6 @@ const syncUp = () => {
 				if (error || response.statusCode !== 200 || !body || !body.images || !body.images.length > 0) return
 
 				const image = `http://www.bing.com/${body.images[0].urlbase}_${resolution.replace('_', 'x')}.jpg`
-
 				const localPath = path.join(wallpaperCacheDir, path.basename(image))
 
 				if (!fs.existsSync(localPath))
