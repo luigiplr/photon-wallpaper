@@ -103,8 +103,11 @@ export default class Settings extends React.Component {
         				})
         			}
         		</SelectField>
+
+        		{this.getSettings.bind(this, this.state.provider)()}
+        		
 			    <Toggle
-      				label="Auto Syning Enabled"
+      				label="Auto Syncing Enabled"
       				defaultToggled={this.state.autoSync}
       				style={toggleSTyle}
       				onToggle={(event, autoSync) => AppActions.autoSyncChange(autoSync)}
@@ -124,7 +127,6 @@ export default class Settings extends React.Component {
         				}
         			</SelectField>
         		</If>
-            	{this.getSettings.bind(this, this.state.provider)()}
         		<div className="bottom">
         			<RaisedButton style={buttonStyle} label="Sync Now"/>
         		</div>
