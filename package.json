@@ -2,7 +2,7 @@
   "name": "photon-wallpaper",
   "version": "0.0.1",
   "author": "Luigi Poole",
-  "description": "A clean way of keeping your wallpaper synced with bing or reddit subreddits!",
+  "description": "A clean way of keeping your wallpaper synced with Bing or Reddit subreddits!",
   "homepage": "https://github.com/luigiplr/photon-wallpaper",
   "main": "js/browser.js",
   "repository": {
