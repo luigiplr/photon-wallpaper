@@ -5,6 +5,7 @@ import {
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Themer from '../themes/themer'
+import wallpaperUtil from '../utils/wallpaperUtil'
 
 import BingSettings from './Settings-SubComponents/Bing.react'
 import RedditSettings from './Settings-SubComponents/Reddit.react'
@@ -146,7 +147,7 @@ export default class Settings extends React.Component {
         			</SelectField>
         		</If>
         		<div className='bottom'>
-        			<RaisedButton style={buttonStyle} label='Sync Now'/>
+        			<RaisedButton onClick={wallpaperUtil} style={buttonStyle} label='Sync Now'/>
         		</div>
             </div>
 		)
