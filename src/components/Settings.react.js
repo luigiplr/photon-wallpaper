@@ -95,17 +95,30 @@ export default class Settings extends React.Component {
           			onChange={(event, index, provider) => AppActions.providerChange(provider)}
           			{...feildStyles}
           			fullWidth={true}
-          			floatingLabelText="Wallpaper provider"
+          			floatingLabelText="Wallpaper Provider"
         			>
         			{
         				this.state.providers.map((provider, idx) => {
-        					return <MenuItem key={idx + 1} value={provider} primaryText={provider.charAt(0).toUpperCase() + provider.slice(1)}/>;
+        					return <MenuItem key={idx + 1} value={provider} primaryText={provider.charAt(0).toUpperCase() + provider.slice(1)}/>
         				})
         			}
         		</SelectField>
 
         		{this.getSettings.bind(this, this.state.provider)()}
         		
+        		<SelectField
+          			value={this.state.resolution}
+          			{...feildStyles}
+          			onChange={(event, index, resolution) => AppActions.resolutionChange(resolution)}
+          			floatingLabelText='Wallpaper Resolution'
+          			fullWidth={true}
+        			>
+        			{
+        				this.state.resolutionOptions.map(({value, text}, idx) => {
+        					return <MenuItem key={idx + 1} value={value} primaryText={text}/>
+        				})
+        			}
+        		</SelectField>
 			    <Toggle
       				label="Auto Syncing Enabled"
       				defaultToggled={this.state.autoSync}
@@ -122,7 +135,7 @@ export default class Settings extends React.Component {
         				>
         				{
         					this.state.syncOptions.map((option, idx) => {
-        						return <MenuItem key={idx + 1} value={option.toLowerCase().replace(' ', '_')} primaryText={option}/>;
+        						return <MenuItem key={idx + 1} value={option.toLowerCase().replace(' ', '_')} primaryText={option}/>
         					})
         				}
         			</SelectField>

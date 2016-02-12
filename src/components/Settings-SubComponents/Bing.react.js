@@ -55,19 +55,6 @@ export default class Bing extends React.Component {
 		return (
 			<div>
             	<SelectField
-          			value={this.state.resolution}
-          			{...feildStyles}
-          			onChange={(event, index, resolution) => this.setState({resolution})}
-          			floatingLabelText="Wallpaper Resolution"
-          			fullWidth={true}
-        			>
-        			{
-        				this.state.resolutionOptions.map(({value, text}, idx) => {
-        					return <MenuItem key={idx + 1} value={value} primaryText={text}/>;
-        				})
-        			}
-        		</SelectField>
-            	<SelectField
           			value={this.state.region}
           			onChange={(event, index, region) => this.setState({region})}
           			{...feildStyles}

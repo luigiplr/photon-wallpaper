@@ -81,7 +81,7 @@ export default class Reddit extends React.Component {
             	<SelectField
           			value={this.state.sort}
           			{...feildStyles}
-          			onChange={(event, index, sort) => this.setState({sort})}
+          			onChange={(event, index, sort) => AppActions.sortChange(sort)}
           			floatingLabelText='Sort By'
           			fullWidth={true}
         			>
@@ -94,27 +94,13 @@ export default class Reddit extends React.Component {
             	<SelectField
           			value={this.state.from}
           			{...feildStyles}
-          			onChange={(event, index, from) => this.setState({from})}
+          			onChange={(event, index, from) => AppActions.fromChange(from)}
           			floatingLabelText='From'
           			fullWidth={true}
         			>
         			{
         				this.state.fromOptions.map((sorter, idx) => {
         					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter}` : 'All'}/>;
-        				})
-        			}
-        		</SelectField>
-            	<SelectField
-          			value={this.state.resolution}
-          			{...feildStyles}
-          			onChange={(event, index, resolution) => this.setState({resolution})}
-          			floatingLabelText='Wallpaper Resolution'
-          			fullWidth={true}
-        			>
-        			{
-        				this.state.resolutionOptions.map(({value, text}, idx) => {
-        					idx++ // prevent value of 0
-        					return <MenuItem key={idx} value={value} primaryText={text}/>;
         				})
         			}
         		</SelectField>

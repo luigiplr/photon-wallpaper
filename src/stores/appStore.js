@@ -14,7 +14,7 @@ class AppStore {
 		this.theme = Themer.getTheme(this.provider)
 
 		this.autoSync = true
-		this.syncOptions = ['Every hour', 'Every day', 'Bi-Daily', 'Every week', 'Every month']
+		this.syncOptions = ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month']
 		this.sync = this.syncOptions[0].toLowerCase().replace(' ', '_')
 
 		this.resolutionOptions = [{
@@ -30,7 +30,7 @@ class AppStore {
 
 		/* Reddit Options */
 
-		this.subReddits = []
+		this.subReddit = null
 
 		this.sortOptions = ['top', 'hot', 'new', 'controversial']
 		this.sort = this.sortOptions[0]
@@ -55,6 +55,9 @@ class AppStore {
 		this.region = this.regionOptions[0].code
 	}
 
+
+	/* Core */
+
 	onProviderChange(provider) {
 		this.provider = provider
 		this.theme = Themer.getTheme(provider)
@@ -64,9 +67,25 @@ class AppStore {
 		this.autoSync = autoSync
 	}
 
-	onSyncTimeoutChange(timeout) {
-		this.sync = timeout
+	onSyncTimeoutChange(sync) {
+		this.sync = sync
 	}
+
+
+	/* Reddit */
+
+	onFromChange(from) {
+		this.from = from
+	}
+
+	onSortChange(sort) {
+		this.sort = sort
+	}
+
+	onSubredditChange(subReddit) {
+		this.subReddit = subReddit
+	}
+
 
 }
 
