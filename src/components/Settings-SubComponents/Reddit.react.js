@@ -53,27 +53,37 @@ export default class Reddit extends React.Component {
 	}
 
 	updateSubredditSuggestions = text => {
+		if (!text || text.length < 1) return
 		reddit.searchSubreddits(text).fetch(res => {
 			if (!res || !res.data || !res.data.children || res.data.children.length === 0) return
 			const subredditSuggestions = res.data.children.map(child => {
 				return `r/${child.data.display_name}`
 			}).slice(0, 5)
-			this.setState({subredditSuggestions})
+			this.setState({
+				subredditSuggestions
+			})
 		})
 	};
 
+	handleSubredditSelect(text) {
+		AppActions.subredditChange((text && text.length > 0) ? text : null)
+		this.setState({
+			subredditSuggestions: []
+		})
+	}
+
 	render() {
 		const feildStyles = this.getStyle('feild')
-
 		return (
 			<div>
 			    <AutoComplete
 			    	floatingLabelText='Subreddit'
-        			hintText='r/EarthPorn'
+        			hintText='r/wallpapers'
         			filter={AutoComplete.noFilter}
         			dataSource={this.state.subredditSuggestions}
         			triggerUpdateOnFocus={true}
-        			defaultValue={this.state.subReddit}
+        			onNewRequest={subReddit => this.handleSubredditSelect(subReddit)}
+        			searchText={this.state.subReddit}
         			fullWidth={true}
        				onUpdateInput={this.updateSubredditSuggestions}
        				{...feildStyles}
