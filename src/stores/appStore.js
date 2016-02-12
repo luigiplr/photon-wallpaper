@@ -14,7 +14,7 @@ class AppStore {
 		this.theme = Themer.getTheme(this.provider)
 
 		this.autoSync = true
-		this.syncOptions = ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month']
+		this.syncOptions = ['Every hour', 'Every day', 'Bi-Daily', 'Every week', 'Every month']
 		this.sync = this.syncOptions[0].toLowerCase().replace(' ', '_')
 
 		this.resolutionOptions = [{

@@ -58,7 +58,6 @@ export default class Reddit extends React.Component {
 			const subredditSuggestions = res.data.children.map(child => {
 				return `r/${child.data.display_name}`
 			}).slice(0, 5)
-			console.log(subredditSuggestions)
 			this.setState({subredditSuggestions})
 		})
 	};
@@ -82,13 +81,26 @@ export default class Reddit extends React.Component {
             	<SelectField
           			value={this.state.sort}
           			{...feildStyles}
-          			onChange={(event, index, sort) => this.setState({resolution})}
+          			onChange={(event, index, sort) => this.setState({sort})}
           			floatingLabelText='Sort By'
           			fullWidth={true}
         			>
         			{
         				this.state.sortOptions.map((sorter, idx) => {
         					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter.charAt(0).toUpperCase() + sorter.slice(1)}/>;
+        				})
+        			}
+        		</SelectField>
+            	<SelectField
+          			value={this.state.from}
+          			{...feildStyles}
+          			onChange={(event, index, from) => this.setState({from})}
+          			floatingLabelText='From'
+          			fullWidth={true}
+        			>
+        			{
+        				this.state.fromOptions.map((sorter, idx) => {
+        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter}` : 'All'}/>;
         				})
         			}
         		</SelectField>
