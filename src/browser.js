@@ -12,13 +12,13 @@ var minimzeInfoShown = false;
 app.on('ready', () => {
 
     const minWidth = 720;
-    const minHeight = 420;
+    const minHeight = 445;
 
     const mainWindow = new BrowserWindow({
         minWidth,
         minHeight,
-        width: 720,
-        height: 420,
+        width: 760,
+        height: 460,
         resizable: true,
         icon: 'images/Bing-logo-blue.png',
         backgroundColor: '#fff',

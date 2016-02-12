@@ -1,14 +1,11 @@
-.content{
-    padding-left: 30px;
+.content {
+	margin: 6px 0;
+    padding: 0 9px 6px 30px;
     left: 300px;
 	width: calc(100vw - 350px);
-    height: 100vh;
+    height: calc(100vh - 18px);
     position: absolute;
-}
-
-.content .bottom{
-	position: fixed;
-	right: 0;
-	bottom: 0;
-
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 525px;
 }
