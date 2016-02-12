@@ -1,9 +1,5 @@
 import React from 'react'
 import {
-	ietfToOpenType
-}
-from 'lang-ietf-opentype'
-import {
 	SelectField, MenuItem, RaisedButton, Toggle
 }
 from 'material-ui'
