@@ -1,6 +1,7 @@
 .sidebar {
     width: 300px;
     height: 100vh;
+    transition: background-color 200ms linear;
     left: 0;
     float: left;
 }
@@ -9,7 +10,18 @@
     background-color: #2785FF;
 }
 
+.sidebar.reddit{
+    background-color: #FF4500;
+}
+
 .sidebar .bing-logo{
+    max-width: 250px;
+    margin-left: 25px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.sidebar .reddit-logo{
     max-width: 250px;
     margin-left: 25px;
     margin-top: 20px;

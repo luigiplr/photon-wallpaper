@@ -6,7 +6,6 @@ from 'material-ui'
 import AppStore from '../stores/appStore'
 
 export default class Sidebar extends React.Component {
-
 	state = {
 		provider: AppStore.getState().provider
 	};
