@@ -8,7 +8,7 @@ import AppStore from '../../stores/appStore'
 import AppActions from '../../actions/appActions'
 
 
-export default class Bing extends React.Component {
+export default class Reddit extends React.Component {
 
 	state = AppStore.getState();
 
@@ -29,7 +29,7 @@ export default class Bing extends React.Component {
 	componentWillUnmount() {
 		AppStore.unlisten(this.onChange);
 	}
-	
+
 	onChange = () => this.setState(AppStore.getState());
 
 	getStyle(el) {
@@ -55,28 +55,29 @@ export default class Bing extends React.Component {
 		return (
 			<div>
             	<SelectField
-          			value={this.state.resolution}
+          			value={this.state.sort}
           			{...feildStyles}
-          			onChange={(event, index, resolution) => this.setState({resolution})}
-          			floatingLabelText="Wallpaper Resolution"
+          			onChange={(event, index, sort) => this.setState({resolution})}
+          			floatingLabelText='Sort By'
           			fullWidth={true}
         			>
         			{
-        				this.state.resolutionOptions.map(({value, text}, idx) => {
-        					return <MenuItem key={idx + 1} value={value} primaryText={text}/>;
+        				this.state.sortOptions.map((sorter, idx) => {
+        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter.charAt(0).toUpperCase() + sorter.slice(1)}/>;
         				})
         			}
         		</SelectField>
             	<SelectField
-          			value={this.state.region}
-          			onChange={(event, index, region) => this.setState({region})}
+          			value={this.state.resolution}
           			{...feildStyles}
-          			floatingLabelText="Region"
+          			onChange={(event, index, resolution) => this.setState({resolution})}
+          			floatingLabelText='Wallpaper Resolution'
           			fullWidth={true}
         			>
         			{
-        				this.state.regionOptions.map(({code, text}, idx) => {
-        					return <MenuItem key={idx + 1} value={code} primaryText={text}/>;
+        				this.state.resolutionOptions.map(({value, text}, idx) => {
+        					idx++ // prevent value of 0
+        					return <MenuItem key={idx} value={value} primaryText={text}/>;
         				})
         			}
         		</SelectField>

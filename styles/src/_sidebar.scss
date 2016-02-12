@@ -2,17 +2,11 @@
     width: 300px;
     height: 100vh;
     left: 0;
-    color: #FEFEFC;
     float: left;
-    background-color: #2785FF;
-    font-weight: 400;
 }
 
-.sidebar h1{
-    font-size: 15px;
-    float: left;
-    margin-top: 35px;
-    margin-left: 40px;
+.sidebar.bing{
+    background-color: #2785FF;
 }
 
 .sidebar .bing-logo{

@@ -5,7 +5,10 @@ import {
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Themer from '../themes/themer'
+
 import BingSettings from './Settings-SubComponents/Bing.react'
+import RedditSettings from './Settings-SubComponents/Reddit.react'
+
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
 
@@ -38,9 +41,7 @@ export default class Settings extends React.Component {
 		AppStore.unlisten(this.onChange);
 	}
 
-	onChange = state => {
-		this.setState(state)
-	};
+	onChange = () => this.setState(AppStore.getState());
 
 	getStyle(el) {
 		switch (el) {
@@ -74,9 +75,10 @@ export default class Settings extends React.Component {
 	getSettings(provider) {
 		switch (provider) {
 			case 'bing':
-				return <BingSettings theme={this.state.theme}/>
+				return <BingSettings />
 				break
 			case 'reddit':
+				return <RedditSettings />
 				break
 		}
 	}
