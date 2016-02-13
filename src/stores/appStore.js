@@ -36,6 +36,7 @@ class AppStore {
 
 		this.autoSync = true
 		this.sync = ls.get('sync') || 'Every Day'.toLowerCase().replace(' ', '_')
+		this.syncing = false
 
 		this.resolution = ls.get('resolution') || '1920x1080'
 
@@ -81,6 +82,10 @@ class AppStore {
 				message: ''
 			}
 		this.error = error
+	}
+
+	onSyncing(syncing){
+		this.syncing = syncing
 	}
 
 	onProviderChange(provider) {

@@ -12,6 +12,7 @@ export default alt.generateActions(
 	'backupSet',
 	'filterChange',
 	'error',
+	'syncing',
 
 
 	/* Reddit Actions */

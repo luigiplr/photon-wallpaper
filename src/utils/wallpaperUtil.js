@@ -25,11 +25,15 @@ if (!fs.existsSync(wallpaperCacheDir))
 const setAndBackup = newPath => {
 	const setWall = () => {
 		console.info(`Setting Wallpaper To: ${newPath}`)
-		wallpaper.set(newPath).then(() => AppActions.error({
-			open: true,
-			message: 'Wallpaper Set',
-			autoHideDuration: 3000
-		}))
+		wallpaper.set(newPath)
+			.then(() => {
+				AppActions.error({
+					open: true,
+					message: 'Wallpaper Set',
+					autoHideDuration: 3000
+				})
+				AppActions.syncing(false)
+			})
 	}
 
 	wallpaper.get()
@@ -56,6 +60,8 @@ const restoreBackup = () => {
 
 
 const syncUp = () => {
+	AppActions.syncing(true)
+
 	const state = AppStore.getState()
 
 	const {
@@ -68,7 +74,7 @@ const syncUp = () => {
 				url: `http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${AppStore.getState().region}`,
 				json: true
 			}, (error, response, body) => {
-				if (error || response.statusCode !== 200 || !body || !body.images || !body.images.length > 0) return
+				if (error || response.statusCode !== 200 || !body || !body.images || !body.images.length > 0) return AppActions.syncing(false)
 
 				const image = `http://www.bing.com/${body.images[0].urlbase}_${resolution}.jpg`
 				const localPath = path.join(wallpaperCacheDir, path.basename(image))
@@ -87,18 +93,19 @@ const syncUp = () => {
 				subReddit, sort, from, score, filterNSFW
 			} = state
 
-			if (!subReddit) return AppActions.error({
-				open: true,
-				message: 'SubReddit Not Set',
-				autoHideDuration: 5000
-			})
+			if (!subReddit) {
+				AppActions.error({
+					open: true,
+					message: 'SubReddit Not Set',
+					autoHideDuration: 5000
+				})
+				return AppActions.syncing(false)
+			}
 
 			const checkRes = (resolution === 'highest' || resolution === 'lowest') ? 'override' : resolution.split('x')
 			const supportedDomains = ['imgur.com']
 
 			const supportedFileTypes = ['.png', '.jpg', '.jpeg']
-
-
 
 			const callback = res => {
 				const possibles = res.data.children.filter(({
@@ -114,12 +121,14 @@ const syncUp = () => {
 					data
 				}) => data)
 
-				if (!possibles.length > 0)
-					return AppActions.error({
+				if (!possibles.length > 0) {
+					AppActions.error({
 						open: true,
 						message: 'No Images Found',
 						autoHideDuration: 5000
 					})
+					return AppActions.syncing(false)
+				}
 
 				let image = false;
 
@@ -149,12 +158,14 @@ const syncUp = () => {
 					image = possibles[Math.floor(Math.random() * possibles.length)].url
 				}
 
-				if (!image)
-					return AppActions.error({
+				if (!image) {
+					AppActions.error({
 						open: true,
 						message: 'No Images Found',
 						autoHideDuration: 5000
 					})
+					return AppActions.syncing(false)
+				}
 
 				const localPath = path.join(wallpaperCacheDir, path.basename(image))
 

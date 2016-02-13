@@ -20,3 +20,13 @@
     margin-top: 20px;
     position: relative;
 }
+.sidebar .logo.fade{
+   -webkit-animation: fadeInOut 3s infinite;
+}
+
+
+  @-webkit-keyframes fadeInOut {
+      from { opacity: 0.4; }
+      50% { opacity: 1.0; }
+      to { opacity: 0.4; }
+  } 
