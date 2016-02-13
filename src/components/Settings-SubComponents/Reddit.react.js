@@ -4,6 +4,7 @@ import {
 }
 from 'material-ui'
 import Redditjs from 'reddit.js'
+import async from 'async'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import AppStore from '../../stores/appStore'
 import AppActions from '../../actions/appActions'
@@ -59,18 +60,21 @@ export default class Reddit extends React.Component {
 		}
 	}
 
-	updateSubredditSuggestions = text => {
-		if (!text || text.length < 1) return
+	updateSubredditSuggestions = async.queue((text, next) => {
+		if (!text || text.length < 1) return next()
+
 		reddit.searchSubreddits(text).fetch(res => {
-			if (!res || !res.data || !res.data.children || res.data.children.length === 0) return
+			if (!res || !res.data || !res.data.children || res.data.children.length === 0) return next()
 			const subredditSuggestions = res.data.children.map(child => {
 				return `r/${child.data.display_name}`
-			}).slice(0, 5)
+			}).slice(0, 3)
 			this.setState({
 				subredditSuggestions
 			})
+			next()
 		})
-	};
+	});
+
 
 	handleSubredditSelect(text) {
 		AppActions.subredditChange((text && text.length > 0) ? text : null)
@@ -92,7 +96,10 @@ export default class Reddit extends React.Component {
         			onNewRequest={subReddit => this.handleSubredditSelect(subReddit)}
         			searchText={this.state.subReddit}
         			fullWidth={true}
-       				onUpdateInput={this.updateSubredditSuggestions}
+       				onUpdateInput={text => {
+       					this.updateSubredditSuggestions.kill() 
+       					this.updateSubredditSuggestions.push(text)
+       				}}
        				{...feildStyles}
       				/>
             	<SelectField
