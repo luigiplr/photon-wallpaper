@@ -1,31 +1,27 @@
-import path from 'path';
+import path from 'path'
 import {
-    Menu, Tray, ipcMain
+    Menu, Tray
 }
-from 'electron';
+from 'electron'
 
+const init = mainWindow => {
 
+    let appIcon = new Tray(path.join(__dirname, '../images/Bing-logo-blue.png'))
 
-module.exports = Helper => {
-    try {
-        let appIcon = new Tray(path.join(__dirname, '../images/icon.png'));
+    appIcon.on('click', () => mainWindow.show())
+    appIcon.on('double-click', () => mainWindow.show())
 
-        appIcon.on('click', Helper.show);
-        appIcon.on('double-click', Helper.show);
-
-        const contextMenu = Menu.buildFromTemplate([{
-            label: 'Show',
-            click: Helper.show
-        }, {
-            type: 'separator'
-        }, {
-            label: 'Exit',
-            click: Helper.close
-        }]);
-        appIcon.setToolTip('Slackie');
-        appIcon.setContextMenu(contextMenu);
-    } catch (e) {
-        console.error(e);
-    }
-    return appIcon;
+    const contextMenu = Menu.buildFromTemplate([{
+        label: 'Show',
+        click: () => mainWindow.show()
+    }, {
+        type: 'separator'
+    }, {
+        label: 'Exit',
+        click: mainWindow.close
+    }])
+    appIcon.setToolTip('Photon Wallpaper')
+    appIcon.setContextMenu(contextMenu)
 }
+
+export default init

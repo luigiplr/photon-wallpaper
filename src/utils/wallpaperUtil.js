@@ -5,14 +5,16 @@ import fs from 'fs'
 import Redditjs from 'reddit.js'
 import path from 'path'
 import {
+	ipcRenderer
+}
+from 'electron'
+import {
 	app
 }
 from 'remote';
 
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
-
-
 
 const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache')
 
@@ -173,6 +175,7 @@ const syncUp = () => {
 	}
 }
 
+ipcRenderer.on('sync_wallpaper', syncUp)
 
 export default {
 	restoreBackup,
