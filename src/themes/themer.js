@@ -1,5 +1,6 @@
-import Bing from './Bing'
-import Reddit from './Reddit'
+import Bing from './bing'
+import Reddit from './reddit'
+import DeviantArt from './deviantArt'
 
 
 export default {
@@ -10,6 +11,9 @@ export default {
 				break
 			case 'reddit':
 				return Reddit
+				break
+			case 'deviant_Art':
+				return DeviantArt
 				break
 		}
 	}

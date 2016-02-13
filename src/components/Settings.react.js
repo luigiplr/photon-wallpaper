@@ -108,7 +108,7 @@ export default class Settings extends React.Component {
         			>
         			{
         				Object.keys(providers).map((provider, idx) => {
-        					return <MenuItem key={idx + 1} value={provider} primaryText={provider.charAt(0).toUpperCase() + provider.slice(1)}/>
+        					return <MenuItem key={idx + 1} value={provider} primaryText={(provider.charAt(0).toUpperCase() + provider.slice(1)).replace('_', ' ')}/>
         				})
         			}
         		</SelectField>

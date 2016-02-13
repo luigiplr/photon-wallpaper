@@ -43,7 +43,7 @@ export default {
 			}]
 		},
 
-		deviantArt: {
+		deviant_Art: {
 			resolutions: [{
 				value: 'highest',
 				text: 'Highest Available'
