@@ -20,7 +20,7 @@ app.on('ready', () => {
         width: minWidth,
         height: 500,
         resizable: true,
-        icon: 'images/Bing-logo-blue.png',
+        icon: 'images/photon.png',
         title: 'Photon Wallpaper',
         center: true,
         'auto-hide-menu-bar': true,
@@ -37,7 +37,7 @@ app.on('ready', () => {
         console.info('Dev Mode Active: Developer Tools Enabled.')
     }
 
-    const appIcon = new Tray(path.join(__dirname, '../images/Bing-logo-blue.png'))
+    const appIcon = new Tray(path.join(__dirname, '../images/photon.png'))
 
     appIcon.on('click', () => {
         if (mainWindow.isMinimized()) {
