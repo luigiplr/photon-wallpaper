@@ -19,7 +19,6 @@ app.on('ready', () => {
     const mainWindow = new BrowserWindow({
         width: minWidth,
         height: 500,
-        skipTaskbar: true,
         resizable: true,
         icon: 'images/Bing-logo-blue.png',
         title: 'Photon Wallpaper',
@@ -42,6 +41,7 @@ app.on('ready', () => {
 
     appIcon.on('click', () => {
         if (mainWindow.isMinimized()) {
+            mainWindow.show()
             mainWindow.restore()
             mainWindow.focus()
         } else
@@ -72,7 +72,7 @@ app.on('ready', () => {
         mainWindow.show()
         mainWindow.focus()
     })
-
+    mainWindow.on('minimize', mainWindow.hide)
     mainWindow.on('close', app.quit)
 });
 
