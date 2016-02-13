@@ -119,8 +119,10 @@ export default class Settings extends React.Component {
 	}
 
 	handelProviderSwitch(newProvider, oldProvider) {
-		if (newProvider !== oldProvider)
-			AppActions.providerChange(newProvider)
+		if (newProvider === oldProvider) return
+
+		AppActions.providerChange(newProvider)
+		AppActions.resolutionChange('1920x1080')
 	}
 
 	render() {
