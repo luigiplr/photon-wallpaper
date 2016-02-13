@@ -7,13 +7,13 @@
 
 ### What is Photon Wallpaper?
 
-### Why did I make it?
-
-I like making shit I guess... I also like wallpapers so this is nice.
+A clean way of keeping your wallpaper synced with Bing or Reddit subreddits!
 
 ### Requirements
 
- - None, I don't think...
+ - Windows 7+
+ - OSX 10.8+
+ - Ethenet Connection
 
 ### Screenshots
 
