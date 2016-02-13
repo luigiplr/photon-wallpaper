@@ -108,9 +108,6 @@ const syncUp = () => {
 			const supportedFileTypes = ['.png', '.jpg', '.jpeg']
 
 			const callback = res => {
-
-				console.log(res.data.children)
-
 				const possibles = res.data.children.filter(({
 					data
 				}) => {
