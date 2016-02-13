@@ -10,6 +10,8 @@ export default alt.generateActions(
 	'syncTimeoutChange',
 	'resolutionChange',
 	'backupSet',
+	'filterChange',
+	'error',
 
 
 	/* Reddit Actions */

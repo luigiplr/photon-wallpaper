@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-	SelectField, MenuItem, AutoComplete
+	SelectField, MenuItem, AutoComplete, Toggle
 }
 from 'material-ui'
 import Redditjs from 'reddit.js'
@@ -8,11 +8,17 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import AppStore from '../../stores/appStore'
 import AppActions from '../../actions/appActions'
 
+class If extends React.Component {
+	render() {
+		return this.props.test ? this.props.children : null
+	}
+}
+
 export default class Reddit extends React.Component {
 
 	state = {
-		minimumScoreOptions: ['0', '50', '100', '150', '200'],
 		subredditSuggestions: [],
+		minimumScoreOptions: ['0', '50', '100', '200', '300', '400', '500', '1000'],
 		...AppStore.getState()
 	};
 
@@ -102,19 +108,21 @@ export default class Reddit extends React.Component {
         				})
         			}
         		</SelectField>
-            	<SelectField
-          			value={this.state.from}
-          			{...feildStyles}
-          			onChange={(event, index, from) => AppActions.fromChange(from)}
-          			floatingLabelText='From'
-          			fullWidth={true}
-        			>
-        			{
-        				this.state.fromOptions.map((sorter, idx) => {
-        					return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter.charAt(0).toUpperCase() + sorter.slice(1)}` : 'All'}/>
-        				})
-        			}
-        		</SelectField>
+        		<If test={this.state.sort === 'top'}>
+            		<SelectField
+          				value={this.state.from}
+          				{...feildStyles}
+          				onChange={(event, index, from) => AppActions.fromChange(from)}
+          				floatingLabelText='From'
+          				fullWidth={true}
+        				>
+        				{
+        					this.state.fromOptions.map((sorter, idx) => {
+        						return <MenuItem key={idx + 1} value={sorter} primaryText={sorter !== 'all' ? `Last ${sorter.charAt(0).toUpperCase() + sorter.slice(1)}` : 'All'}/>
+        					})
+        				}
+        			</SelectField>
+        		</If>
             	<SelectField
           			value={this.state.score}
           			{...feildStyles}
@@ -128,6 +136,12 @@ export default class Reddit extends React.Component {
         				})
         			}
         		</SelectField>
+			    <Toggle
+      				label='Filter NSFW Content'
+      				defaultToggled={this.state.filterNSFW}
+      				style={{fontWeight: 300, marginTop: 16}}
+      				onToggle={(event, value) => AppActions.filterChange('filterNSFW', value)}
+    				/>
             </div>
 		)
 	}

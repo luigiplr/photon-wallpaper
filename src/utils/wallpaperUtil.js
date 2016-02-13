@@ -2,13 +2,13 @@ import Promise from 'bluebird'
 import wallpaper from 'wallpaper'
 import request from 'request'
 import fs from 'fs'
+import Redditjs from 'reddit.js'
 import path from 'path'
 import {
 	app
 }
 from 'remote';
 
-import RedditUtil from './redditUtil'
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
 
@@ -72,37 +72,54 @@ const syncUp = () => {
 			});
 			break
 		case 'reddit':
+			const {
+				subReddit, sort, from, score, filterNSFW
+			} = state
 
-			const options = {
-				subreddits: [state.subReddit.replace('r/', '')],
-				sort: state.sort,
-				from: state.from,
-				score: parseInt(state.score),
-				domains: ['i.imgur.com', 'imgur.com'],
-				types: ['png', 'jpg', 'jpeg'],
-				shuffle: false,
-				resolution: {
-					width: parseInt(resolution.split('x')[0]),
-					height: parseInt(resolution.split('x')[1])
-				}
+			const checkRes = resolution.split('x')
+			const supportedDomains = ['imgur.com']
+
+			const supportedFileTypes = ['.png', '.jpg', '.jpeg']
+
+			const callback = res => {
+				let possibles = res.data.children.filter(({
+					data
+				}) => {
+					if (!data) return false
+					const okNSFW = !filterNSFW || filterNSFW !== data.over_18
+					const passesScore = data.score >= score
+					const supportedType = supportedFileTypes.includes(path.extname(data.url))
+					const supportedResolution = data.title.includes(checkRes[0]) && data.title.includes(checkRes[1])
+					return (supportedType && supportedResolution && passesScore && okNSFW)
+				}).map(({
+					data
+				}) => data)
+
+				if (!possibles.length > 0){
+					AppActions.error({
+						open: true,
+						message: 'No Images Found',
+						autoHideDuration: 5000
+					})
+					return console.log('No Images Found D:')
+				} 
+
+				const image = possibles[Math.floor(Math.random() * possibles.length)].url
+				const localPath = path.join(wallpaperCacheDir, path.basename(image))
+
+				if (!fs.existsSync(localPath))
+					request
+					.get(image)
+					.pipe(fs.createWriteStream(localPath))
+					.on('finish', () => setAndBackup(localPath))
+				else
+					setAndBackup(localPath)
 			}
 
-			RedditUtil(options)
-				.then(link => {
-					if (!link.url) return console.log('No Images Found')
-
-					const image = link.url
-					const localPath = path.join(wallpaperCacheDir, path.basename(image))
-
-					if (!fs.existsSync(localPath))
-						request
-						.get(image)
-						.pipe(fs.createWriteStream(localPath))
-						.on('finish', () => setAndBackup(localPath))
-					else
-						setAndBackup(localPath)
-				})
-				.catch(e => console.error(e))
+			if (sort === 'top')
+				reddit.top(subReddit.replace('r/', '')).t(from).limit(25).fetch(callback)
+			else
+				reddit[sort](subReddit.replace('r/', '')).limit(25).fetch(callback)
 			break
 	}
 }

@@ -104,8 +104,6 @@ export default class Settings extends React.Component {
         			}
         		</SelectField>
 
-        		{this.getSettings.bind(this, this.state.provider)()}
-        		
         		<SelectField
           			value={this.state.resolution}
           			{...feildStyles}
@@ -114,11 +112,14 @@ export default class Settings extends React.Component {
           			fullWidth={true}
         			>
         			{
-        				this.state.resolutionOptions.map(({value, text}, idx) => {
+        				this.state.resolutionOptions[this.state.provider].map(({value, text}, idx) => {
         					return <MenuItem key={idx + 1} value={value} primaryText={text}/>
         				})
         			}
         		</SelectField>
+
+        		{this.getSettings.bind(this, this.state.provider)()}
+        		
 			    <Toggle
       				label='Auto Syncing Enabled'
       				defaultToggled={this.state.autoSync}
