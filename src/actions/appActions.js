@@ -11,7 +11,7 @@ export default alt.generateActions(
 	'resolutionChange',
 	'backupSet',
 	'filterChange',
-	'error',
+	'info',
 	'syncing',
 
 

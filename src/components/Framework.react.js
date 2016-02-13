@@ -60,8 +60,8 @@ export default class Framework extends React.Component {
             	<Sidebar />
             	<Settings />
             	<Snackbar 
-            		onRequestClose={() => AppActions.error(false)}
-            		{...this.state.error} />
+            		onRequestClose={() => AppActions.info(false)}
+            		{...this.state.info} />
             </div>
 		)
 	}

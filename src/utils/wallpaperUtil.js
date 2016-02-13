@@ -26,7 +26,7 @@ const setAndBackup = newPath => {
 		console.info(`Setting Wallpaper To: ${newPath}`)
 		wallpaper.set(newPath)
 			.then(() => {
-				AppActions.error({
+				AppActions.info({
 					open: true,
 					message: 'Wallpaper Set',
 					autoHideDuration: 3000
@@ -82,7 +82,7 @@ const syncUp = () => {
 			BingWallpaperSync(state)
 				.then(checkAndGo)
 				.catch(err => {
-					AppActions.error(err)
+					AppActions.info(err)
 					AppActions.syncing(false)
 				})
 
@@ -91,7 +91,7 @@ const syncUp = () => {
 			RedditWallpaperSync(state)
 				.then(checkAndGo)
 				.catch(err => {
-					AppActions.error(err)
+					AppActions.info(err)
 					AppActions.syncing(false)
 				})
 			break

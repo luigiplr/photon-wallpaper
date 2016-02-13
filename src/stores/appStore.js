@@ -22,7 +22,7 @@ class AppStore {
 
 		this.analiticsID = ls.get('analyticsID') || setAnalyticsID()
 
-		this.error = {
+		this.info = {
 			open: false,
 			message: ''
 		}
@@ -75,13 +75,13 @@ class AppStore {
 
 	/* Core */
 
-	onError(error) {
-		if (!error)
-			return this.error = {
+	onInfo(info) {
+		if (!info)
+			return this.info = {
 				open: false,
 				message: ''
 			}
-		this.error = error
+		this.info = info
 	}
 
 	onSyncing(syncing){
