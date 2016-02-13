@@ -21,6 +21,15 @@ if (!fs.existsSync(wallpaperCacheDir))
 
 
 const setAndBackup = newPath => {
+	const setWall = () => {
+		console.info(`Setting Wallpaper To: ${newPath}`)
+		wallpaper.set(newPath).then(() => AppActions.error({
+			open: true,
+			message: 'Wallpaper Set',
+			autoHideDuration: 3000
+		}))
+	}
+
 	wallpaper.get()
 		.then(oldWallpaperPath => {
 			const backUpPath = path.join(wallpaperCacheDir, `wallpaper_backup${path.extname(oldWallpaperPath)}`)
@@ -30,10 +39,10 @@ const setAndBackup = newPath => {
 				.pipe(fs.createWriteStream(backUpPath))
 				.on('finish', () => {
 					AppActions.backupSet(backUpPath)
-					wallpaper.set(newPath)
+					setWall()
 				})
 			else
-				wallpaper.set(newPath)
+				setWall()
 		})
 }
 
@@ -76,35 +85,75 @@ const syncUp = () => {
 				subReddit, sort, from, score, filterNSFW
 			} = state
 
-			const checkRes = resolution.split('x')
+			if (!subReddit) return AppActions.error({
+				open: true,
+				message: 'SubReddit Not Set',
+				autoHideDuration: 5000
+			})
+
+			const checkRes = (resolution === 'highest' || resolution === 'lowest') ? 'override' : resolution.split('x')
 			const supportedDomains = ['imgur.com']
 
 			const supportedFileTypes = ['.png', '.jpg', '.jpeg']
 
+
+
 			const callback = res => {
-				let possibles = res.data.children.filter(({
+				const possibles = res.data.children.filter(({
 					data
 				}) => {
 					if (!data) return false
 					const okNSFW = !filterNSFW || filterNSFW !== data.over_18
 					const passesScore = data.score >= score
 					const supportedType = supportedFileTypes.includes(path.extname(data.url))
-					const supportedResolution = data.title.includes(checkRes[0]) && data.title.includes(checkRes[1])
+					const supportedResolution = resolution === 'override' ? true : (data.title.includes(checkRes[0]) && data.title.includes(checkRes[1]))
 					return (supportedType && supportedResolution && passesScore && okNSFW)
 				}).map(({
 					data
 				}) => data)
 
-				if (!possibles.length > 0){
-					AppActions.error({
+				if (!possibles.length > 0)
+					return AppActions.error({
 						open: true,
 						message: 'No Images Found',
 						autoHideDuration: 5000
 					})
-					return console.log('No Images Found D:')
-				} 
 
-				const image = possibles[Math.floor(Math.random() * possibles.length)].url
+				let image = false;
+
+				if (checkRes === 'override') {
+
+					const regex = /\[(\d+)x(\d+)\]/i
+					let peak = [0, 0]
+
+					possibles.forEach((possible, idx) => {
+						if (!possible.title) return
+						let test = regex.exec(possible.title)
+
+						if (test && test[0]) {
+							let num = parseInt(test[0].replace(/\D/g, ''))
+							if (resolution === 'highest') {
+								if (num > peak[1])
+									peak = [idx, num]
+							} else {
+								if (peak[1] === 0 || num < peak[1])
+									peak = [idx, num]
+							}
+						}
+					})
+
+					image = possibles[peak[0]].url
+				} else {
+					image = possibles[Math.floor(Math.random() * possibles.length)].url
+				}
+
+				if (!image)
+					return AppActions.error({
+						open: true,
+						message: 'No Images Found',
+						autoHideDuration: 5000
+					})
+
 				const localPath = path.join(wallpaperCacheDir, path.basename(image))
 
 				if (!fs.existsSync(localPath))

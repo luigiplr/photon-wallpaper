@@ -31,6 +31,9 @@ const resolutionOptions = {
 		text: 'HD (1280 x 720)'
 	}],
 	reddit: [{
+		value: 'highest',
+		text: 'Highest Available'
+	}, {
 		value: '7680x4320',
 		text: '8K UHD (7680 x 4320)'
 	}, {
@@ -51,6 +54,9 @@ const resolutionOptions = {
 	}, {
 		value: '1280x720',
 		text: 'HD (1280 x 720)'
+	}, {
+		value: 'lowest',
+		text: 'Lowest Available'
 	}]
 }
 
