@@ -81,6 +81,8 @@ export default class Settings extends React.Component {
 			case 'reddit':
 				return <RedditSettings />
 				break
+			default:
+				return null
 		}
 	}
 
@@ -149,7 +151,7 @@ export default class Settings extends React.Component {
         				}
         			</SelectField>
         		</If>
-        		
+
         		<div>
         			<RaisedButton onClick={wallpaperUtil.syncUp} style={{ margin: 12, float: 'right', marginLeft: 15}} label='Sync Now' />
         			<RaisedButton onClick={wallpaperUtil.restoreBackup} label='Revert' style={{ margin: 12, float: 'right', marginRight: 0}} disabled={!this.state.backupSet} />
