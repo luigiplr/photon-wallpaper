@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-	SelectField, MenuItem, RaisedButton, Toggle 
+	SelectField, MenuItem, RaisedButton, Toggle
 }
 from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
@@ -18,6 +18,40 @@ class If extends React.Component {
 	render() {
 		return this.props.test ? this.props.children : null
 	}
+}
+
+const syncOptions = ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month']
+
+const resolutionOptions = {
+	bing: [{
+		value: '1920x1080',
+		text: 'FHD (1920 × 1080)'
+	}, {
+		value: '1280x720',
+		text: 'HD (1280 x 720)'
+	}],
+	reddit: [{
+		value: '7680x4320',
+		text: '8K UHD (7680 x 4320)'
+	}, {
+		value: '5120x2880',
+		text: '5K UHD+ (5120 x 2880)'
+	}, {
+		value: '3840x2160',
+		text: '4K UHD+ (3840 x 2160)'
+	}, {
+		value: '3200x1800',
+		text: 'WQXGA+ (3200 x 1800)'
+	}, {
+		value: '2560x1440',
+		text: 'WQHD (2560 x 1440)'
+	}, {
+		value: '1920x1080',
+		text: 'FHD (1920 × 1080)'
+	}, {
+		value: '1280x720',
+		text: 'HD (1280 x 720)'
+	}]
 }
 
 export default class Settings extends React.Component {
@@ -112,7 +146,7 @@ export default class Settings extends React.Component {
           			fullWidth={true}
         			>
         			{
-        				this.state.resolutionOptions[this.state.provider].map(({value, text}, idx) => {
+        				resolutionOptions[this.state.provider].map(({value, text}, idx) => {
         					return <MenuItem key={idx + 1} value={value} primaryText={text}/>
         				})
         			}
@@ -135,7 +169,7 @@ export default class Settings extends React.Component {
           				floatingLabelText='Auto Sync Wallpaper'
         				>
         				{
-        					this.state.syncOptions.map((option, idx) => {
+        					syncOptions.map((option, idx) => {
         						return <MenuItem key={idx + 1} value={option.toLowerCase().replace(' ', '_')} primaryText={option}/>
         					})
         				}

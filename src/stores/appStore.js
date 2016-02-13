@@ -1,10 +1,17 @@
 import ls from 'local-storage'
+import {
+	v4 as uuid
+}
+from 'uuid'
 import alt from '../alt'
 import fs from 'fs'
 import Themer from '../themes/themer'
 import AppActions from '../actions/appActions'
 
-
+const setAnalyticsID = (id = uuid()) => {
+	ls.set('analyticsID', id)
+	return id
+}
 
 class AppStore {
 	constructor() {
@@ -12,6 +19,8 @@ class AppStore {
 
 
 		/* Core Settings */
+
+		this.analiticsID = ls.get('analyticsID') || setAnalyticsID()
 
 		this.error = {
 			open: false,
@@ -26,41 +35,7 @@ class AppStore {
 		this.theme = Themer.getTheme(this.provider)
 
 		this.autoSync = true
-		this.syncOptions = ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month']
-		this.sync = ls.get('sync') || this.syncOptions[0].toLowerCase().replace(' ', '_')
-
-		this.resolutionOptions = {
-			bing: [{
-				value: '1920x1080',
-				text: 'FHD (1920 × 1080)'
-			}, {
-				value: '1280x720',
-				text: 'HD (1280 x 720)'
-			}],
-			reddit: [{
-				value: '7680x4320',
-				text: '8K UHD (7680 x 4320)'
-			},{
-				value: '5120x2880',
-				text: '5K UHD+ (5120 x 2880)'
-			}, {
-				value: '3840x2160',
-				text: '4K UHD+ (3840 x 2160)'
-			}, {
-				value: '3200x1800',
-				text: 'WQXGA+ (3200 x 1800)'
-			}, {
-				value: '2560x1440',
-				text: 'WQHD (2560 x 1440)'
-			}, {
-				value: '1920x1080',
-				text: 'FHD (1920 × 1080)'
-			}, {
-				value: '1280x720',
-				text: 'HD (1280 x 720)'
-			}]
-
-		}
+		this.sync = ls.get('sync') || 'Every Day'.toLowerCase().replace(' ', '_')
 
 		this.resolution = ls.get('resolution') || '1920x1080'
 
