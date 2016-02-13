@@ -40,7 +40,13 @@ app.on('ready', () => {
 
     const appIcon = new Tray(path.join(__dirname, '../images/Bing-logo-blue.png'))
 
-    appIcon.on('click', () => mainWindow.isMinimized() ? mainWindow.restore() : mainWindow.minimize())
+    appIcon.on('click', () => {
+        if (mainWindow.isMinimized()) {
+            mainWindow.restore()
+            mainWindow.focus()
+        } else
+            mainWindow.minimize()
+    })
     appIcon.setToolTip('Photon Wallpaper')
 
     appIcon.setContextMenu(Menu.buildFromTemplate([{
