@@ -134,7 +134,7 @@ const syncUp = () => {
 
 				if (checkRes === 'override') {
 
-					const regex = /\[(\d+)\s*(\W|[A-Za-z])\s*(\d+)\]/i
+					const regex = /\[(\d+)\s*(\W+|[A-Za-z]+)\s*(\d+)\]/i
 					let peak = [0, 0]
 
 					possibles.forEach((possible, idx) => {
