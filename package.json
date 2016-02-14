@@ -32,7 +32,6 @@
     "react-tap-event-plugin": "^0.2.2",
     "reddit.js": "^0.1.3",
     "request": "^2.69.0",
-    "rss-parser": "^2.2.4",
     "universal-analytics": "^0.3.10",
     "uuid": "^2.0.1",
     "wallpaper": "^2.1.0",

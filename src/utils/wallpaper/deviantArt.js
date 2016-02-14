@@ -1,6 +1,5 @@
 import Promise from 'bluebird'
 import request from 'request'
-import rss from 'rss-parser'
 
 const tokens = ['4293', '254f7523f9a3983c16c843385e653ef8']
 
