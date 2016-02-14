@@ -8,15 +8,16 @@ import {
 }
 from 'electron'
 import {
-	app
+	app,
+	getCurrentWindow as CurrentWindow
 }
-from 'remote';
+from 'remote'
 
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
 import BingWallpaperSync from './wallpaper/bing'
 import RedditWallpaperSync from './wallpaper/reddit'
-
+import DeviantArtWallpaperSync from './wallpaper/deviantArt'
 
 const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache')
 if (!fs.existsSync(wallpaperCacheDir)) fs.mkdirSync(wallpaperCacheDir)
@@ -32,6 +33,7 @@ const setAndBackup = newPath => {
 					autoHideDuration: 3000
 				})
 				AppActions.syncing(false)
+				CurrentWindow().setProgressBar(-1)
 			})
 	}
 
@@ -60,6 +62,7 @@ const restoreBackup = () => {
 const checkAndGo = imageURL => {
 	if (!imageURL) return console.error('No ImageURL given; Something has gone very wrong!')
 
+	CurrentWindow().setProgressBar(0.5)
 	const localPath = path.join(wallpaperCacheDir, path.basename(imageURL))
 
 	if (!fs.existsSync(localPath))
@@ -74,7 +77,7 @@ const checkAndGo = imageURL => {
 
 const syncUp = () => {
 	AppActions.syncing(true)
-
+	CurrentWindow().setProgressBar(2)
 	const state = AppStore.getState()
 
 	switch (state.provider) {
@@ -84,6 +87,7 @@ const syncUp = () => {
 				.catch(err => {
 					AppActions.info(err)
 					AppActions.syncing(false)
+					CurrentWindow().setProgressBar(-1)
 				})
 
 			break
@@ -93,8 +97,19 @@ const syncUp = () => {
 				.catch(err => {
 					AppActions.info(err)
 					AppActions.syncing(false)
+					CurrentWindow().setProgressBar(-1)
 				})
 			break
+		case 'deviant_Art':
+			DeviantArtWallpaperSync(state)
+				.then(checkAndGo)
+				.catch(err => {
+					AppActions.info(err)
+					AppActions.syncing(false)
+					CurrentWindow().setProgressBar(-1)
+				})
+			break
+
 	}
 }
 
