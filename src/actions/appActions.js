@@ -9,6 +9,7 @@ export default alt.generateActions(
 	'autoSyncChange',
 	'syncTimeoutChange',
 	'resolutionChange',
+	'monitorChange',
 	'backupSet',
 	'filterChange',
 	'info',
