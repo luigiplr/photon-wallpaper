@@ -21,7 +21,7 @@
     "async": "^1.5.2",
     "bluebird": "^3.2.2",
     "fbjs": "^0.7.2",
-    "is-online": "^5.0.1",
+    "is-online": "^5.1.0",
     "local-storage": "^1.4.2",
     "lodash": "^4.3.0",
     "material-ui": "^0.14.4",
