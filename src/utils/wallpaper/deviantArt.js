@@ -1,36 +1,18 @@
 import Promise from 'bluebird'
 import request from 'request'
 import rss from 'rss-parser'
-import {
-	BrowserWindow
-}
-from 'remote'
+
+const tokens = ['4293', '254f7523f9a3983c16c843385e653ef8']
 
 const syncUpDA = ({
 	resolution
 }) => {
 	return new Promise((resolve, reject) => {
-
-		const catagory = 'digitalart/drawings'
-		const sort = 'popular'
-		const from = 'all'
-		const search = 'nature'
-		const url = `http://backend.deviantart.com/rss.xml?type=deviation&q=boost:${sort}+meta:${from}+in:${catagory}+${search}`
-
-		const requestWin = new BrowserWindow({
-			show: false,
-			skipTaskbar: true,
-			webPreferences: {
-				nodeIntegration: false
-			}
+		return reject({
+			open: true,
+			message: 'Deviant Art Provider Not Created',
+			autoHideDuration: 5000
 		})
-		requestWin.loadURL(url)
-
-		requestWin.webContents.on('did-finish-load', () => {
-			console.log('RSS loaded')
-			console.log(requestWin)
-		})
-
 	})
 }
 
