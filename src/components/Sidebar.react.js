@@ -5,24 +5,19 @@ import {
 from 'material-ui'
 import AppStore from '../stores/appStore'
 
+
 export default class Sidebar extends React.Component {
-	state = {
-		provider: AppStore.getState().provider,
-		syncing: AppStore.getState().syncing
-	};
+	state = AppStore.getState();
 
 	componentDidMount() {
-		AppStore.listen(this.onChange);
+		AppStore.listen(this.onChange)
 	}
 
 	componentWillUnmount() {
-		AppStore.unlisten(this.onChange);
+		AppStore.unlisten(this.onChange)
 	}
 
-	onChange = () => this.setState({
-		provider: AppStore.getState().provider,
-		syncing: AppStore.getState().syncing
-	});
+	onChange = () => this.setState(AppStore.getState());
 
 	render() {
 		return (
