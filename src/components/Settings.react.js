@@ -127,6 +127,23 @@ export default class Settings extends React.Component {
         			}
         		</SelectField>
 
+        		<If test={providers[this.state.provider].monitorOptions && providers[this.state.provider].monitorOptions.length > 1}>
+        			<SelectField
+        				value={this.state.monitors}
+        				onChange={(event, index, monitors) => AppActions.monitorChange(monitors)}
+        				{...feildStyles}
+                     	fullWidth={true}
+                      	floatingLabelText='Monitors'
+                      	>
+                      	{
+                    		providers[this.state.provider].monitorOptions.map(option => {
+                        			return <MenuItem key={option} value={option} primaryText={option}/>
+                    		})
+                    		}
+                    </SelectField>
+                </If>
+
+
         		{this.getSettings.bind(this, this.state.provider)()}
         		
 			    <Toggle

@@ -40,7 +40,9 @@ export default {
 			}, {
 				value: 'lowest',
 				text: 'Lowest Available'
-			}]
+			}],
+
+			monitorOptions: [1, 2, 3]
 		},
 
 		deviant_Art: {
