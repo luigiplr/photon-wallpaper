@@ -7,6 +7,8 @@ import alt from '../alt'
 import fs from 'fs'
 import Themer from '../themes/themer'
 import AppActions from '../actions/appActions'
+import syncScheduler from '../utils/syncSchedulerUtil'
+
 
 const setAnalyticsID = (id = uuid()) => {
 	ls.set('analyticsID', id)
@@ -37,6 +39,9 @@ class AppStore {
 		this.autoSync = true
 		this.sync = ls.get('sync') || 'Every Day'.toLowerCase().replace(' ', '_')
 		this.syncing = false
+		this.lastSync = ls.get('lastSync') || void 0
+		this.nextSync = ls.get('nextSync') || new syncScheduler(this.sync, this.lastSync).next
+		console.log(this.nextSync)
 
 		this.resolution = ls.get('resolution') || '1920x1080'
 
@@ -86,7 +91,7 @@ class AppStore {
 		this.info = info
 	}
 
-	onSyncing(syncing){
+	onSyncing(syncing) {
 		this.syncing = syncing
 	}
 

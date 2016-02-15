@@ -1,5 +1,5 @@
 export default {
-	syncOptions: ['Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month'],
+	syncOptions: ['Every 30 Minutes', 'Every Hour', 'Every Day', 'Bi-Daily', 'Every Week', 'Every Month'],
 
 	providers: {
 		bing: {
