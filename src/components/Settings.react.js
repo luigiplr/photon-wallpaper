@@ -88,7 +88,6 @@ export default class Settings extends React.Component {
 
 	handelProviderSwitch(newProvider, oldProvider) {
 		if (newProvider === oldProvider) return
-
 		AppActions.providerChange(newProvider)
 		AppActions.resolutionChange('1920x1080')
 	}
@@ -128,7 +127,7 @@ export default class Settings extends React.Component {
         			}
         		</SelectField>
 
-    			<If test={providers[this.state.provider].monitorOptions && providers[this.state.provider].monitorOptions.length > 1}>
+    			<If test={providers[this.state.provider].monitorOptions && providers[this.state.provider].monitorOptions.length > 1 && (this.state.resolution !== 'highest' && this.state.resolution !== 'lowest')}>
             		<SelectField
           				value={this.state.monitors}
           				onChange={(event, index, monitors) => AppActions.monitorChange(monitors)}
