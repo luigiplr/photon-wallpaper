@@ -6,6 +6,7 @@ from 'material-ui'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import Themer from '../themes/themer'
 import wallpaperUtil from '../utils/wallpaperUtil'
+import providers from '../providers'
 
 import BingSettings from './Settings-SubComponents/Bing.react'
 import RedditSettings from './Settings-SubComponents/Reddit.react'
@@ -13,12 +14,7 @@ import RedditSettings from './Settings-SubComponents/Reddit.react'
 import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
 
-import config from '../conf'
 
-
-const {
-	syncOptions, providers
-} = config
 
 class If extends React.Component {
 	render() {
@@ -76,10 +72,10 @@ export default class Settings extends React.Component {
 	getSettings(provider) {
 		switch (provider) {
 			case 'bing':
-				return <BingSettings />
+				return <BingSettings providers={providers} />
 				break
 			case 'reddit':
-				return <RedditSettings />
+				return <RedditSettings providers={providers} />
 				break
 			default:
 				return null
@@ -90,6 +86,9 @@ export default class Settings extends React.Component {
 		if (newProvider === oldProvider) return
 		AppActions.providerChange(newProvider)
 		AppActions.resolutionChange('1920x1080')
+
+		if (!providers[newProvider].syncOptions.includes(this.state.sync))
+			console.log('does not contain timeout option')
 	}
 
 	render() {
@@ -108,7 +107,7 @@ export default class Settings extends React.Component {
         			{
         				Object.keys(providers).map((provider, idx) => {
         					if(providers[provider].disabled) return []
-        					return <MenuItem key={idx + 1} value={provider} primaryText={(provider.charAt(0).toUpperCase() + provider.slice(1)).replace('_', ' ')}/>
+        					return <MenuItem key={idx + 1} value={provider} primaryText={provider.replace(/_/g, ' ').split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}/>
         				})
         			}
         		</SelectField>
@@ -161,8 +160,8 @@ export default class Settings extends React.Component {
           				floatingLabelText='Auto Sync Wallpaper'
         				>
         				{
-        					syncOptions.map((option, idx) => {
-        						return <MenuItem key={idx + 1} value={option.toLowerCase().replace(' ', '_')} primaryText={option}/>
+        					providers[this.state.provider].syncOptions.map((option, idx) => {
+        						return <MenuItem key={idx + 1} value={option} primaryText={option.replace(/_/g, ' ').split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}/>
         					})
         				}
         			</SelectField>

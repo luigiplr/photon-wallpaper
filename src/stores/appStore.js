@@ -4,10 +4,12 @@ import {
 }
 from 'uuid'
 import alt from '../alt'
+import moment from 'moment'
 import fs from 'fs'
 import Themer from '../themes/themer'
 import AppActions from '../actions/appActions'
 import syncScheduler from '../utils/syncSchedulerUtil'
+import providers from '../providers'
 
 
 const setAnalyticsID = (id = uuid()) => {
@@ -31,17 +33,16 @@ class AppStore {
 
 		this.backupSet = ls.get('backupSet') && fs.existsSync(ls.get('backupSet')) ? ls.get('backupSet') : false
 
-		this.providers = ['bing', 'reddit']
+		this.providers = Object.keys(providers)
 		this.provider = ls.get('provider') || this.providers[0]
 
 		this.theme = Themer.getTheme(this.provider)
 
 		this.autoSync = true
-		this.sync = ls.get('sync') || 'Every Day'.toLowerCase().replace(' ', '_')
+		this.sync = ls.get('sync') || 'every_day'
 		this.syncing = false
-		this.lastSync = ls.get('lastSync') || void 0
-		this.nextSync = ls.get('nextSync') || new syncScheduler(this.sync, this.lastSync).next
-		console.log(this.nextSync)
+		this.lastSync = ls.get('lastSync') || moment()
+		this.nextSync = new syncScheduler(this.sync, this.lastSync).next
 
 		this.resolution = ls.get('resolution') || '1920x1080'
 
@@ -65,18 +66,7 @@ class AppStore {
 
 		/* Bing Options */
 
-		this.regionOptions = [{
-			code: 'en-US',
-			text: 'North America',
-		}, {
-			code: 'zh-CN',
-			text: 'Europe'
-		}, {
-			code: 'ja-JP',
-			text: 'Asia'
-		}]
-
-		this.region = ls.get('region') || this.regionOptions[0].code
+		this.region = ls.get('region') || providers['bing'].regionOptions[0].code
 	}
 
 
@@ -93,6 +83,14 @@ class AppStore {
 
 	onSyncing(syncing) {
 		this.syncing = syncing
+	}
+
+	onSynced() {
+		this.lastSync = moment()
+		this.nextSync = new syncScheduler(this.sync, this.lastSync).next
+		this.syncing = false
+		ls.set('lastSync', this.lastSync)
+		ls.set('nextSync', this.nextSync)
 	}
 
 	onProviderChange(provider) {

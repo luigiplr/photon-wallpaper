@@ -14,6 +14,7 @@ export default alt.generateActions(
 	'filterChange',
 	'info',
 	'syncing',
+	'synced',
 
 
 	/* Reddit Actions */

@@ -7,6 +7,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import notifier from 'node-notifier'
 import analytics from 'universal-analytics'
+import moment from 'moment'
 import path from 'path'
 import os from 'os'
 import isOnline from 'is-online'
@@ -34,6 +35,7 @@ export default class Framework extends React.Component {
 
 	componentWillMount() {
 		injectTapEventPlugin()
+		setTimeout(this.checkSync, (60000 - moment().seconds() * 1000 + moment().milliseconds()) / 2) // Sync's the checking function with start of minute on users PC
 	}
 
 	componentDidMount() {
@@ -59,6 +61,15 @@ export default class Framework extends React.Component {
 	}
 
 	onChange = () => this.setState(AppStore.getState());
+
+	checkSync = () => {
+
+		if (moment().isSameOrAfter(this.state.nextSync) && this.state.autoSync) {
+
+		}
+
+		setTimeout(this.checkSync, (60000 - moment().seconds() * 1000 + moment().milliseconds()) / 2)
+	};
 
 	render() {
 		return (

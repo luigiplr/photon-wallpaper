@@ -62,6 +62,8 @@ export default class Bing extends React.Component {
 	render() {
 		const feildStyles = this.getStyle('feild')
 
+		console.log(this.props)
+
 		return (
 			<div>
             	<SelectField
@@ -72,7 +74,7 @@ export default class Bing extends React.Component {
           			fullWidth={true}
         			>
         			{
-        				this.state.regionOptions.map(({code, text}, idx) => {
+        				this.props.providers.bing.regionOptions.map(({code, text}, idx) => {
         					return <MenuItem key={idx + 1} value={code} primaryText={text}/>
         				})
         			}

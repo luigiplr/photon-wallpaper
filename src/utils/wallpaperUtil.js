@@ -18,7 +18,6 @@ import AppStore from '../stores/appStore'
 import AppActions from '../actions/appActions'
 import BingWallpaperSync from './wallpaper/bing'
 import RedditWallpaperSync from './wallpaper/reddit'
-import DeviantArtWallpaperSync from './wallpaper/deviantArt'
 
 const ga = analytics('UA-67206995-7', AppStore.getState().analiticsID, {
 	https: true
