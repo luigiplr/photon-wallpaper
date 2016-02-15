@@ -12,6 +12,7 @@ import path from 'path'
 import os from 'os'
 import isOnline from 'is-online'
 import packageJson from '../../package'
+import wallpaperUtil from '../utils/wallpaperUtil'
 
 import Sidebar from './Sidebar.react'
 import Settings from './Settings.react'
@@ -63,10 +64,8 @@ export default class Framework extends React.Component {
 	onChange = () => this.setState(AppStore.getState());
 
 	checkSync = () => {
-
-		if (moment().isSameOrAfter(this.state.nextSync) && this.state.autoSync) {
-
-		}
+		if (moment().isSameOrAfter(this.state.nextSync) && this.state.autoSync)
+			wallpaperUtil.syncUp()
 
 		setTimeout(this.checkSync, (60000 - moment().seconds() * 1000 + moment().milliseconds()) / 2)
 	};
