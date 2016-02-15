@@ -4,7 +4,9 @@ import Redditjs from 'reddit.js'
 import path from 'path'
 
 
-const syncUpReddit = ({subReddit, sort, from, score, filterNSFW, resolution}) => {
+const syncUpReddit = ({
+	subReddit, sort, from, score, filterNSFW, resolution, monitors
+}) => {
 	return new Promise((resolve, reject) => {
 
 		if (!subReddit)
@@ -27,13 +29,13 @@ const syncUpReddit = ({subReddit, sort, from, score, filterNSFW, resolution}) =>
 				const okNSFW = !filterNSFW || filterNSFW !== data.over_18
 				const passesScore = data.score >= score
 				const supportedType = supportedFileTypes.includes(path.extname(data.url))
-				const supportedResolution = resolution === 'override' ? true : (data.title.includes(checkRes[0]) && data.title.includes(checkRes[1]))
+				const supportedResolution = resolution === 'override' ? true : (data.title.includes(checkRes[0] * monitors) && data.title.includes(checkRes[1]))
 				return (supportedType && supportedResolution && passesScore && okNSFW)
 			}).map(({
 				data
 			}) => data)
 
-			if (!possibles.length > 0)
+			if (possibles.length === 0)
 				return reject({
 					open: true,
 					message: 'No Images Found',
@@ -41,7 +43,7 @@ const syncUpReddit = ({subReddit, sort, from, score, filterNSFW, resolution}) =>
 				})
 
 
-			let image = false;
+			let image = false
 
 			if (checkRes === 'override') {
 
