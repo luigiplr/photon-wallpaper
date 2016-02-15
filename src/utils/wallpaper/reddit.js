@@ -17,7 +17,6 @@ const syncUpReddit = ({
 			})
 
 		const checkRes = (resolution === 'highest' || resolution === 'lowest') ? 'override' : resolution.split('x')
-		const supportedDomains = ['imgur.com']
 
 		const supportedFileTypes = ['.png', '.jpg', '.jpeg']
 
