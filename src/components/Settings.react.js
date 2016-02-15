@@ -108,6 +108,7 @@ export default class Settings extends React.Component {
         			>
         			{
         				Object.keys(providers).map((provider, idx) => {
+        					if(providers[provider].disabled) return []
         					return <MenuItem key={idx + 1} value={provider} primaryText={(provider.charAt(0).toUpperCase() + provider.slice(1)).replace('_', ' ')}/>
         				})
         			}
@@ -136,9 +137,9 @@ export default class Settings extends React.Component {
           				floatingLabelText='Monitors'
         				>
         				{
-        				providers[this.state.provider].monitorOptions.map((option, idx) => {
-        					return <MenuItem key={idx + 1} value={option} primaryText={option}/>
-        				})
+        					providers[this.state.provider].monitorOptions.map((option, idx) => {
+        						return <MenuItem key={idx + 1} value={option} primaryText={option}/>
+        					})
         				}
         			</SelectField>
         		</If>
