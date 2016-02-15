@@ -1,22 +1,22 @@
-var path = require('path');
-var execFile = require('child_process').execFile;
-var packagejson = require('./package.json');
+var path = require('path')
+var execFile = require('child_process').execFile
+var packagejson = require('./package.json')
 try {
-    var electron = require('electron-prebuilt');
+    var electron = require('electron-prebuilt')
 } catch (e) {}
 
 
 module.exports = function(grunt) {
-    require('load-grunt-tasks')(grunt);
-    var target = grunt.option('target') || 'development';
+    require('load-grunt-tasks')(grunt)
+    var target = grunt.option('target') || 'development'
 
-    var BASENAME = 'Photon-Wallpaper';
-    var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32';
+    var BASENAME = 'Photon-Wallpaper'
+    var arch = grunt.option('arch') ? grunt.option('arch') : 'ia32'
 
-    var platform = grunt.option('platform') ? grunt.option('platform') : process.platform;
+    var platform = grunt.option('platform') ? grunt.option('platform') : process.platform
 
-    var env = process.env;
-    env.NODE_ENV = 'development';
+    var env = process.env
+    env.NODE_ENV = 'development'
 
     grunt.initConfig({
         electron: {
@@ -132,18 +132,18 @@ module.exports = function(grunt) {
                 tasks: ['newer:copy:dev']
             }
         }
-    });
+    })
 
-    grunt.registerTask('default', ['clean:build', 'newer:babel', 'sass', 'newer:copy:build', 'shell:electron', 'watchChokidar']);
+    grunt.registerTask('default', ['clean:build', 'newer:babel', 'sass', 'newer:copy:build', 'shell:electron', 'watchChokidar'])
 
-    grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar']);
+    grunt.registerTask('run', ['newer:babel', 'shell:electron', 'watchChokidar'])
 
-    grunt.registerTask('clean:all', ['clean:build', 'clean:dist', 'clean:release']);
+    grunt.registerTask('clean:all', ['clean:build', 'clean:dist', 'clean:release'])
 
-    grunt.registerTask('release', ['clean:build', 'babel', 'sass', 'copy:build', 'npm-command:release', 'electron:release']);
+    grunt.registerTask('release', ['clean:build', 'babel', 'sass', 'copy:build', 'npm-command:release', 'electron:release'])
 
     process.on('SIGINT', function() {
-        grunt.task.run(['shell:electron:kill']);
-        process.exit(1);
-    });
-};
+        grunt.task.run(['shell:electron:kill'])
+        process.exit(1)
+    })
+}
