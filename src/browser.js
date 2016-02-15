@@ -20,7 +20,7 @@ app.on('ready', () => {
         width: minWidth,
         height: 500,
         resizable: true,
-        icon: 'images/photon.png',
+        icon: path.join(__dirname, '../images/photon.png'),
         title: 'Photon Wallpaper',
         center: true,
         'auto-hide-menu-bar': true,

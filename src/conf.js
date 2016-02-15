@@ -9,7 +9,8 @@ export default {
 			}, {
 				value: '1280x720',
 				text: 'HD (1280 x 720)'
-			}]
+			}],
+			monitorOptions: [1]
 		},
 
 		reddit: {
@@ -40,10 +41,12 @@ export default {
 			}, {
 				value: 'lowest',
 				text: 'Lowest Available'
-			}]
+			}],
+			monitorOptions: [1, 2, 3]
 		},
 
 		deviant_Art: {
+			disabled: true,
 			resolutions: [{
 				value: 'highest',
 				text: 'Highest Available'

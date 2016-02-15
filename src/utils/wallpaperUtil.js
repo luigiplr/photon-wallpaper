@@ -1,5 +1,6 @@
 import Promise from 'bluebird'
 import wallpaper from 'wallpaper'
+import analytics from 'universal-analytics'
 import request from 'request'
 import fs from 'fs'
 import path from 'path'
@@ -19,6 +20,10 @@ import BingWallpaperSync from './wallpaper/bing'
 import RedditWallpaperSync from './wallpaper/reddit'
 import DeviantArtWallpaperSync from './wallpaper/deviantArt'
 
+const ga = analytics('UA-67206995-7', AppStore.getState().analiticsID, {
+	https: true
+})
+
 const wallpaperCacheDir = path.join(app.getPath('userData'), 'wallpaper_cache')
 if (!fs.existsSync(wallpaperCacheDir)) fs.mkdirSync(wallpaperCacheDir)
 
@@ -34,6 +39,7 @@ const setAndBackup = newPath => {
 				})
 				AppActions.syncing(false)
 				CurrentWindow().setProgressBar(-1)
+				ga.event('WALLPAPER_SET', newPath).send()
 			})
 	}
 
@@ -57,6 +63,7 @@ const setAndBackup = newPath => {
 const restoreBackup = () => {
 	wallpaper.set(AppStore.getState().backupSet)
 		.then(() => AppActions.backupSet(false))
+	ga.event('WALLPAPER_REVERT').send()
 }
 
 const checkAndGo = imageURL => {
@@ -64,6 +71,7 @@ const checkAndGo = imageURL => {
 
 	CurrentWindow().setProgressBar(0.5)
 	const localPath = path.join(wallpaperCacheDir, path.basename(imageURL))
+	ga.event('WALLPAPER_GET', imageURL).send()
 
 	if (!fs.existsSync(localPath))
 		request

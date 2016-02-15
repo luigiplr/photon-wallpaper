@@ -40,6 +40,8 @@ class AppStore {
 
 		this.resolution = ls.get('resolution') || '1920x1080'
 
+		this.monitors = ls.get('monitors') || 1
+
 		this.filterNSFW = ls.get('filterNSFW') || true
 
 
@@ -107,6 +109,11 @@ class AppStore {
 	onResolutionChange(resolution) {
 		ls.set('resolution', resolution)
 		this.resolution = resolution
+	}
+
+	onMonitorChange(monitors) {
+		ls.set('monitors', monitors)
+		this.monitors = monitors
 	}
 
 	onBackupSet(backupSet) {

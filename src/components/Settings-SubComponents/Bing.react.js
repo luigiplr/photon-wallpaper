@@ -3,6 +3,7 @@ import {
 	SelectField, MenuItem, RaisedButton, Toggle
 }
 from 'material-ui'
+import isReachable from 'is-reachable'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import AppStore from '../../stores/appStore'
 import AppActions from '../../actions/appActions'
@@ -23,13 +24,22 @@ export default class Bing extends React.Component {
 	}
 
 	componentDidMount() {
-		AppStore.listen(this.onChange);
+		AppStore.listen(this.onChange)
+
+		isReachable('bing.com', (err, reachable) => {
+			if (!err && reachable) return
+			AppActions.info({
+				open: true,
+				message: 'Bing unreachable',
+				autoHideDuration: 5000
+			})
+		})
 	}
 
 	componentWillUnmount() {
-		AppStore.unlisten(this.onChange);
+		AppStore.unlisten(this.onChange)
 	}
-	
+
 	onChange = () => this.setState(AppStore.getState());
 
 	getStyle(el) {

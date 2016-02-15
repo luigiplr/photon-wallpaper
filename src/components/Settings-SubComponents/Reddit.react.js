@@ -3,6 +3,7 @@ import {
 	SelectField, MenuItem, AutoComplete, Toggle
 }
 from 'material-ui'
+import isReachable from 'is-reachable'
 import Redditjs from 'reddit.js'
 import async from 'async'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
@@ -35,6 +36,15 @@ export default class Reddit extends React.Component {
 
 	componentDidMount() {
 		AppStore.listen(this.onChange)
+
+		isReachable('reddit.com', (err, reachable) => {
+			if (!err && reachable) return
+			AppActions.info({
+				open: true,
+				message: 'Bing unreachable',
+				autoHideDuration: 5000
+			})
+		})
 	}
 
 	componentWillUnmount() {

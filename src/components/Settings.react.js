@@ -88,7 +88,6 @@ export default class Settings extends React.Component {
 
 	handelProviderSwitch(newProvider, oldProvider) {
 		if (newProvider === oldProvider) return
-
 		AppActions.providerChange(newProvider)
 		AppActions.resolutionChange('1920x1080')
 	}
@@ -108,6 +107,7 @@ export default class Settings extends React.Component {
         			>
         			{
         				Object.keys(providers).map((provider, idx) => {
+        					if(providers[provider].disabled) return []
         					return <MenuItem key={idx + 1} value={provider} primaryText={(provider.charAt(0).toUpperCase() + provider.slice(1)).replace('_', ' ')}/>
         				})
         			}
@@ -126,6 +126,22 @@ export default class Settings extends React.Component {
         				})
         			}
         		</SelectField>
+
+    			<If test={providers[this.state.provider].monitorOptions && providers[this.state.provider].monitorOptions.length > 1 && (this.state.resolution !== 'highest' && this.state.resolution !== 'lowest')}>
+            		<SelectField
+          				value={this.state.monitors}
+          				onChange={(event, index, monitors) => AppActions.monitorChange(monitors)}
+          				{...feildStyles}
+          				fullWidth={true}
+          				floatingLabelText='Monitors'
+        				>
+        				{
+        					providers[this.state.provider].monitorOptions.map((option, idx) => {
+        						return <MenuItem key={idx + 1} value={option} primaryText={option}/>
+        					})
+        				}
+        			</SelectField>
+        		</If>
 
         		{this.getSettings.bind(this, this.state.provider)()}
         		
