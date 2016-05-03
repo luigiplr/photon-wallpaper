@@ -43,8 +43,12 @@ class SettingsPage extends Component {
 
   renderProviderSettings() {
     const { updateSettings, provider, providerSettings } = this.props
-    const ProviderSettings = eval(`${provider}Settings`)
-    return <ProviderSettings updateSettings={updateSettings} {...providerSettings} styles={this.styles} />
+    try {
+      const ProviderSettings = eval(`${provider}Settings`)
+      return <ProviderSettings updateSettings={updateSettings} {...providerSettings} styles={this.styles} />
+    } catch (e) {
+      return null
+    }
   }
 
   render() {
