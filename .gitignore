@@ -1,18 +1,15 @@
 .DS_Store
 .swp
+
 build
 release
 dist
+
+bower_components
 node_modules
+build_cache
 npm-debug.log
 
-# Cache
 cache
-
-# Tests
-.test
-
-# IDEs
-.idea
-
-OAuth.json
+.gulp-scss-cache
+.eslintrc.json
