@@ -30,6 +30,7 @@ app.on('ready', () => {
     ...mainWindowState
   })
 
+  mainWindow.setMenu(null)
 
   /* Remember position and size of window */
   mainWindowState.manage(mainWindow)
