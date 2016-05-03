@@ -38,7 +38,7 @@ class redditSettings extends Component {
           fullWidth={true}
         >
           {
-            Providers.reddit.minimumScoreOptions.map((score, idx) => <MenuItem key={idx + 1} value={score} primaryText={score}/>)
+            Providers.reddit.minimumScoreOptions.map((score, idx) => <MenuItem key={idx + 1} value={score} primaryText={score.toString()}/>)
           }
         </SelectField>
       </div>
