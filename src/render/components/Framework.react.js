@@ -61,9 +61,10 @@ class Framework extends Component {
     )
   }
 
-  _updateSettings(settings) {
-
-  }
+  _updateSettings = settings => Promise.all(Object.keys(settings).map(key => this.settings.setSetting(key, settings[key]))).then(() => {
+    const { settings, providerSettings } = this.settings
+    this.setState({ settings, providerSettings })
+  })
 
   _getAppContents() {
     const { settings, providerSettings } = this.state
