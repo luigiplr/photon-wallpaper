@@ -19,19 +19,26 @@ class redditSettings extends Component {
     subreddit: React.PropTypes.string.isRequired
   }
 
+  updateSettings(settings) {
+    const newSettings = {}
+    Object.keys(settings).map(key => newSettings[`reddit-${key}`] = settings[key])
+    this.props.updateSettings(newSettings)
+  }
+
   render() {
-    const { styles, region, updateSettings } = this.props
+    const { styles, score } = this.props
+    const { feild } = styles
     return (
       <div >
         <SelectField
-          value={region}
-          onChange={(event, index, region) => updateSettings({'bing-region': region})}
-          {...styles.feild}
-          floatingLabelText='Region'
+          value={score}
+          {...feild}
+          onChange={(event, index, score) => this.updateSettings({score})}
+          floatingLabelText='Minimum Score'
           fullWidth={true}
         >
           {
-            Providers.bing.regionOptions.map(({code, text}, idx) => <MenuItem key={idx + 1} value={code} primaryText={text}/>)
+            Providers.reddit.minimumScoreOptions.map((score, idx) => <MenuItem key={idx + 1} value={score} primaryText={score}/>)
           }
         </SelectField>
       </div>

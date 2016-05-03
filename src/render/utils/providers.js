@@ -51,6 +51,7 @@ const Providers = {
     }],
     sortOptions: ['top', 'hot', 'new', 'controversial'],
     fromOptions: ['hour', 'day', 'week', 'month', 'all'],
+    minimumScoreOptions: [0, 50, 100, 200, 300, 400, 500, 1000],
     monitorOptions: [1, 2, 3],
     syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']
   }
