@@ -54,5 +54,12 @@ const Providers = {
     minimumScoreOptions: [0, 50, 100, 200, 300, 400, 500, 1000],
     monitorOptions: [1, 2, 3],
     syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']
+  },
+  windows_spotlight: {
+    resolutions: [{
+      value: '1920x1080',
+      text: 'FHD (1920 × 1080)'
+    }],
+    syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']
   }
 }
