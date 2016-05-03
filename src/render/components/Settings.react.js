@@ -43,11 +43,8 @@ class SettingsPage extends Component {
 
   renderProviderSettings() {
     const { updateSettings, provider, providerSettings } = this.props
-    switch (provider) {
-      case 'bing':
-        return <BingSettings updateSettings={updateSettings} {...providerSettings} styles={this.styles} />
-        break
-    }
+    const ProviderSettings = eval(`${provider}Settings`)
+    return <ProviderSettings updateSettings={updateSettings} {...providerSettings} styles={this.styles} />
   }
 
   render() {

@@ -11,6 +11,7 @@ class Framework extends Component {
 
   componentWillMount() {
     injectTapEventPlugin()
+    
     this._initSettings().then(() => {
       const { settings, providerSettings } = this.settings
       if (this.mounted) {
@@ -70,7 +71,7 @@ class Framework extends Component {
     const { settings, providerSettings } = this.state
     return (
       <div>
-        <Sidebar {...settings} syncing={false} />
+        <Sidebar provider={settings.provider} syncing={false} />
         <SettingsPage updateSettings={::this._updateSettings} {...settings} providerSettings={providerSettings} syncing={false} />
       </div>
     )

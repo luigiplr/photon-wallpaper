@@ -1,4 +1,4 @@
-class bingSettings extends Component {
+class redditSettings extends Component {
 
   static childContextTypes = {
     muiTheme: React.PropTypes.object.isRequired
@@ -13,7 +13,10 @@ class bingSettings extends Component {
   static propTypes = {
     styles: React.PropTypes.object.isRequired,
     updateSettings: React.PropTypes.func.isRequired,
-    region: React.PropTypes.string.isRequired,
+    score: React.PropTypes.number.isRequired,
+    sort: React.PropTypes.string.isRequired,
+    from: React.PropTypes.string.isRequired,
+    subreddit: React.PropTypes.string.isRequired
   }
 
   render() {
