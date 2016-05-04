@@ -128,7 +128,7 @@ gulp.task('electron-build', callback => electronPackager({
   asar: true,
   cache: 'build_cache',
   overwrite: true,
-  version: '0.37.5'
+  version: '0.37.8'
 }, (err, appPath) => {
   if (err) console.error(err)
   else console.info(`App built to ${appPath}`)
