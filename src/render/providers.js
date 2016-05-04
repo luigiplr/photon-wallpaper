@@ -59,6 +59,9 @@ const Providers = {
     resolutions: [{
       value: '1920x1080',
       text: 'FHD (1920 × 1080)'
+    }, {
+      value: '1080x1920',
+      text: 'Portrait FHD (1080 x 1920)'
     }],
     tagOptions: ['pretty_pictures', 'best_of'],
     syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']

@@ -25,6 +25,7 @@ app.on('ready', () => {
     frame: true,
     resizable: true,
     show: false,
+    icon: path.join(__dirname, '..', 'images/photon.png'),
     minWidth: 768,
     minHeight: 468,
     ...mainWindowState
