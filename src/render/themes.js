@@ -55,4 +55,23 @@ class Themes {
       }
     }
   }
+
+  static get unsplash() {
+    return {
+      palette: {
+        primary1Color: colors.grey500,
+        primary2Color: colors.grey700,
+        primary3Color: colors.lightBlack,
+        accent1Color: colors.blueA200,
+        accent2Color: colors.grey100,
+        accent3Color: colors.grey500,
+        textColor: colors.darkBlack,
+        alternateTextColor: colors.white,
+        canvasColor: colors.white,
+        borderColor: colors.grey300,
+        disabledColor: ColorManipulator.fade(colors.darkBlack, 0.3),
+        pickerHeaderColor: colors.grey500,
+      }
+    }
+  }
 }
