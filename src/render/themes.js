@@ -1,12 +1,11 @@
-
 class Themes {
   static get bing() {
     return {
       palette: {
-        primary1Color: colors.blue500,
-        primary2Color: colors.blue700,
+        primary1Color: colors.grey500,
+        primary2Color: colors.grey700,
         primary3Color: colors.lightBlack,
-        accent1Color: colors.blueA200,
+        accent1Color: colors.grey700,
         accent2Color: colors.grey100,
         accent3Color: colors.grey500,
         textColor: colors.darkBlack,
@@ -14,7 +13,7 @@ class Themes {
         canvasColor: colors.white,
         borderColor: colors.grey300,
         disabledColor: ColorManipulator.fade(colors.darkBlack, 0.3),
-        pickerHeaderColor: colors.blue500,
+        pickerHeaderColor: colors.grey500,
       }
     }
   }
