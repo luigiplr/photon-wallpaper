@@ -13,6 +13,9 @@ import async from 'async'
 import localforage from 'localforage'
 import _ from 'lodash'
 import moment from 'moment'
+import request from 'request'
+import { sync as mkdirp } from 'mkdirp'
+import wallpaper from 'wallpaper'
 
 /* React */
 import React, { Component } from 'react'

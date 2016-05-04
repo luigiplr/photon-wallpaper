@@ -57,7 +57,7 @@ class Settings extends EventEmitter {
   }
 
   _defaultSettings() {
-    const { bing, reddit } = Providers
+    const { bing, reddit, windows_spotlight } = Providers
     return {
       /* App */
       autoSync: true,
@@ -70,6 +70,9 @@ class Settings extends EventEmitter {
 
       /* Bing */
       'bing-region': bing.regionOptions[0].code,
+
+      /* Bing */
+      'windows_spotlight-tag': windows_spotlight.tagOptions[0],
 
       /* Reddit */
       'reddit-score': 0,

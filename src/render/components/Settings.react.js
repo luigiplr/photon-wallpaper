@@ -34,7 +34,8 @@ class SettingsPage extends Component {
   }
 
   _syncUp() {
-
+    const { provider, resolution, providerSettings } = this.props
+    const sync = new WallpaperSync(provider, resolution, providerSettings)
   }
 
   _restoreBackup() {

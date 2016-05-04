@@ -60,6 +60,7 @@ const Providers = {
       value: '1920x1080',
       text: 'FHD (1920 × 1080)'
     }],
+    tagOptions: ['pretty_pictures', 'best_of'],
     syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']
   }
 }
