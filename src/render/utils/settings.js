@@ -78,7 +78,8 @@ class Settings extends EventEmitter {
       'reddit-score': 0,
       'reddit-sort': reddit.sortOptions[0],
       'reddit-from': 'day',
-      'reddit-subreddit': 'wallpapers'
+      'reddit-subreddit': 'r/wallpapers',
+      'reddit-filterNSFW': true
     }
   }
 }
