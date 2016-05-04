@@ -3,6 +3,15 @@ class WallpaperSync {
     return this[`fetch_${provider}`](Object.assign(providerSettings, { resolution }))
   }
 
+  fetch_unsplash({ grayscale, random, resolution }) {
+
+      const args = []
+      if (random) args.push('random')
+
+      const url = `https://unsplash.it/${grayscale ? 'g/' : ''}${resolution.split('x').join('/')}${args.length > 0 ? `/?${args.join('&')}` : '' }`
+      this.setWallpaper(url, 'unsplash.jpg')
+  }
+
   fetch_bing({ region, resolution }) {
     const url = `http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${region}`
     request(url, { json: true }, (error, { statusCode }, body) => {
@@ -47,9 +56,9 @@ class WallpaperSync {
     console.log('Fetching Reddit')
   }
 
-  setWallpaper(imageURL) {
+  setWallpaper(imageURL, filename) {
     const wallpaperCacheDir = path.join(remote.app.getPath('temp'), remote.app.getName())
-    const savepath = path.join(wallpaperCacheDir, path.basename(imageURL))
+    const savepath = path.join(wallpaperCacheDir, filename|| path.basename(imageURL) )
 
     mkdirp(wallpaperCacheDir)
     request(imageURL)

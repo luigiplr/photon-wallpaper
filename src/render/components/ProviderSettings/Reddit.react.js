@@ -11,7 +11,7 @@ class redditSettings extends Component {
   state = {
     subredditSuggestions: []
   }
-  
+
   componentDidMount() {
     this.mounted = true
   }

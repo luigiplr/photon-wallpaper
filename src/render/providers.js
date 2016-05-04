@@ -55,6 +55,26 @@ const Providers = {
     monitorOptions: [1, 2, 3],
     syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']
   },
+  unsplash: {
+    resolutions: [{
+      value: '3840x2160',
+      text: '4K UHD+ (3840 x 2160)'
+    }, {
+      value: '3200x1800',
+      text: 'WQXGA+ (3200 x 1800)'
+    }, {
+      value: '2560x1440',
+      text: 'WQHD (2560 x 1440)'
+    }, {
+      value: '1920x1080',
+      text: 'FHD (1920 × 1080)'
+    }, {
+      value: '1280x720',
+      text: 'HD (1280 x 720)'
+    }],
+    monitorOptions: [1, 2],
+    syncOptions: ['every_30_minutes', 'every_hour', 'every_day', 'bi_daily', 'every_week', 'every_month']
+  },
   windows_spotlight: {
     resolutions: [{
       value: '1920x1080',

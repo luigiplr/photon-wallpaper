@@ -74,6 +74,10 @@ class Settings extends EventEmitter {
       /* Bing */
       'windows_spotlight-tag': windows_spotlight.tagOptions[0],
 
+      /* Unsplash */
+      'unsplash-grayscale': false,
+      'unsplash-random': true,
+
       /* Reddit */
       'reddit-score': 0,
       'reddit-sort': reddit.sortOptions[0],
